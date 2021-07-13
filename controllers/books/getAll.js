@@ -15,7 +15,7 @@ const getAll = async (req, res, next) => {
     res.json({
       status: 'success',
       code: httpCode.OK,
-      data: result,
+      data: { result },
     });
   } catch (error) {
     throw new Error(error.message);
