@@ -25,9 +25,9 @@ const addUser = async (body) => {
   }
 };
 
-const updateToken = async (id, token) => {
+const updateToken = async (id, { token }) => {
   try {
-    return await User.updateOne({ _id: id }, { token });
+    return await User.updateOne({ id, token });
   } catch (error) {
     throw new Error(error.message);
   }
