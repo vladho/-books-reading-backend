@@ -19,7 +19,7 @@ const addOne = async (req, res, next) => {
       data: { result },
     });
   } catch (error) {
-    next(error);
+    throw new Error(error.message);
   }
 };
 
