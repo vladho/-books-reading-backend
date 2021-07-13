@@ -1,5 +1,5 @@
-const { userService: services } = require("../../services");
-const httpCode = require("../../helpers/constants");
+const { userService: services } = require('../../services');
+const httpCode = require('../../helpers/constants');
 
 const signup = async (req, res, next) => {
   const { email, password } = req.body;
@@ -7,29 +7,27 @@ const signup = async (req, res, next) => {
     const result = await services.getUserByEmail(email);
     if (result) {
       return res.status(httpCode.CONFLICT).json({
-        status: "error",
+        status: 'error',
         code: httpCode.CONFLICT,
-        message: "Email in use",
+        message: 'Email in use',
       });
     }
     if (!email || !password) {
       return res.status(httpCode.BAD_REQUEST).json({
-        status: "error",
+        status: 'error',
         code: httpCode.BAD_REQUEST,
-        message: "Mising some fields",
+        message: 'Mising some fields',
       });
     }
-    const body = {
-      email,
-      password,
-    };
-    const user = await services.addUser(body);
+    const user = await services.addUser({ email, password });
     res.status(httpCode.CREATED).json({
-      status: "success",
+      status: 'success',
       code: httpCode.CREATED,
-      message: "Successfully added",
+      message: 'Successfully added',
       data: {
-        body,
+        id: user._id,
+        name: user.name,
+        email: user.email,
       },
     });
   } catch (error) {

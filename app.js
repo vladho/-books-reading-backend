@@ -6,7 +6,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
-const { usersRouter } = require('./routes/api');
+const { usersRouter, booksRouter } = require('./routes/api');
 const { httpCode } = require('./helpers/constants');
 const { ErrorHandler } = require('./helpers/error-handler');
 const { apiLimit, jsonLimit } = require('./config/rate-limit.json');
@@ -46,6 +46,7 @@ app.use(
 );
 
 app.use('/api/users', usersRouter);
+app.use('/api/books', booksRouter);
 
 app.use((req, res, _next) => {
   res.status(httpCode.NOT_FOUND).json({

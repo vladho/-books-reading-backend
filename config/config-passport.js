@@ -1,8 +1,8 @@
-const passport = require("passport");
-const passportJwt = require("passport-jwt");
-require("dotenv").config();
+const passport = require('passport');
+const passportJwt = require('passport-jwt');
+require('dotenv').config();
 
-const { userService: services } = require("../services");
+const { userService: services } = require('../services');
 
 const { ExtractJwt, Strategy } = passportJwt;
 const { JWT_SECRET_KEY } = process.env;
@@ -17,7 +17,7 @@ passport.use(
     try {
       const user = await services.getUserById(payload.id);
       if (!user) {
-        throw new Error("User not found");
+        throw new Error('User not found');
       }
       done(null, user);
     } catch (error) {

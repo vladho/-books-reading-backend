@@ -1,7 +1,7 @@
-const jwt = require("jsonwebtoken");
-const { userService: services } = require("../../services");
-const httpCode = require("../../helpers/constants");
-require("dotenv").config();
+const jwt = require('jsonwebtoken');
+const { userService: services } = require('../../services');
+const httpCode = require('../../helpers/constants');
+require('dotenv').config();
 
 const login = async (req, res, next) => {
   const { email, password } = req.body;
@@ -10,16 +10,16 @@ const login = async (req, res, next) => {
     // console.log(password);
     if (!user || !user.validPassword(password)) {
       return res.status(httpCode.UNAUTHORIZED).json({
-        status: "error",
+        status: 'error',
         code: httpCode.UNAUTHORIZED,
-        message: "Invalid email or password",
+        message: 'Invalid email or password',
       });
     }
     if (!email || !password) {
       res.status(httpCode.BAD_REQUEST).json({
-        status: "error",
+        status: 'error',
         code: httpCode.BAD_REQUEST,
-        message: "Missing some fields",
+        message: 'Missing some fields',
       });
     }
     const payload = {
@@ -29,7 +29,7 @@ const login = async (req, res, next) => {
     const token = jwt.sign(payload, JWT_SECRET_KEY);
     user.token = token;
     res.json({
-      status: "success",
+      status: 'success',
       code: httpCode.OK,
       data: {
         token: user.token,
