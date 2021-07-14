@@ -19,7 +19,7 @@ passport.use(
         return done(new Error('User not found'));
       }
       if (!user.token) {
-        console.log(user.token);
+        // console.log(user.token);
         return done(null, false);
       }
       return done(null, user);

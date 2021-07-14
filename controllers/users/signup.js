@@ -22,7 +22,7 @@ const signup = async (req, res, next) => {
       });
     }
 
-    const newUser = await services.addUser({ email, password });
+    const newUser = await services.addUser({ name, email, password });
 
     res.status(httpCode.CREATED).json({
       status: 'success',

@@ -33,18 +33,18 @@ const userSchema = new Schema(
   { versionKey: false, timestamps: true }
 );
 
-userSchema.pre('save', async function (next) {
+userSchema.pre('save', function (next) {
   if (!this.isModified('password')) {
     return next();
   }
 
-  const salt = await bcrypt.genSalt(SALT_FACTOR);
-  this.password = await bcrypt.hash(this.password, salt, null);
+  const salt = bcrypt.genSaltSync(SALT_FACTOR);
+  this.password = bcrypt.hashSync(this.password, salt, null);
   next();
 });
 
-userSchema.methods.validPassword = async function (password) {
-  return await bcrypt.compare(password, this.password);
+userSchema.methods.validPassword = function (password) {
+  return bcrypt.compareSync(password, this.password);
 };
 
 module.exports = userSchema;
