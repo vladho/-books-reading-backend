@@ -1,5 +1,5 @@
 const { userService: services } = require('../../services');
-const httpCode = require('../../helpers/constants');
+const { httpCode } = require('../../helpers/constants');
 
 const signup = async (req, res, next) => {
   const { name, email, password } = req.body;
