@@ -10,7 +10,7 @@ const login = async (req, res, next) => {
 
   try {
     const user = await services.getUserByEmail(email);
-
+    const isValidPassport = await user.validPassword(password);
     if (!user) {
       return res.status(httpCode.UNAUTHORIZED).json({
         status: 'error',
@@ -19,12 +19,11 @@ const login = async (req, res, next) => {
       });
     }
 
-    const isValidPassport = await user.validPassword(password);
     if (user.validPassword(password) === null || !isValidPassport) {
       return res.status(httpCode.UNAUTHORIZED).json({
         status: 'error',
         code: httpCode.UNAUTHORIZED,
-        message: 'Invalid Credentials!',
+        message: 'Invalid password',
       });
     }
 
