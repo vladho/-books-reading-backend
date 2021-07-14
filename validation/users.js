@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { httpCode } = require('../helpers/constants');
+const httpCode = require('../helpers/constants');
 
 const schemaSignup = Joi.object({
   name: Joi.string().alphanum().min(2).max(30).optional(),
@@ -19,7 +19,6 @@ const schemaLogin = Joi.object({
 
 const validate = (schema, body, next) => {
   const { error } = schema.validate(body);
-
   if (error) {
     const [{ message }] = error.details;
 

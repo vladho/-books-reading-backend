@@ -7,15 +7,13 @@ const dotenv = require('dotenv');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const { usersRouter, booksRouter } = require('./routes/api');
-const { httpCode } = require('./helpers/constants');
+const httpCode = require('./helpers/constants');
 const { ErrorHandler } = require('./helpers/error-handler');
 const { apiLimit, jsonLimit } = require('./config/rate-limit.json');
 
 dotenv.config();
 
 const app = express();
-
-require('./config/config-passport');
 
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
 const accessLogStream = fs.createWriteStream(

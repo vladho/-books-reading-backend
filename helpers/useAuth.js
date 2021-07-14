@@ -1,17 +1,20 @@
-const passport = require("passport");
-const httpCode = require("../helpers/constants");
+const passport = require('passport');
+const httpCode = require('../helpers/constants');
+require('../config/config-passport');
 
 const useAuth = (req, res, next) => {
-  passport.authenticate("jwt", { session: false }, (error, user) => {
-    if (!user || error) {
+  passport.authenticate('jwt', { session: false }, (error, user) => {
+    const [, token] = req.get('Authorization').split(' ');
+    if (!user || error || token !== user.token) {
       return res.status(httpCode.UNAUTHORIZED).json({
-        status: "error",
+        status: 'error',
         code: httpCode.UNAUTHORIZED,
-        message: "Not authorized",
+        message: 'Not authorized',
       });
     }
     req.user = user;
     next();
+    // return next()
   })(req, res, next);
 };
 
