@@ -10,4 +10,13 @@ const httpCode = {
   INTERNAL_SERVER_ERROR: 500,
 };
 
-module.exports = httpCode;
+const bookStatus = {
+  PLAN: 'plan',
+  READ: 'read',
+  DONE: 'done',
+};
+
+module.exports = {
+  httpCode,
+  bookStatus,
+};
