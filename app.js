@@ -6,16 +6,14 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
-const { usersRouter } = require('./routes/api');
-const { httpCode } = require('./helpers/constants');
+const { usersRouter, booksRouter } = require('./routes/api');
+const httpCode = require('./helpers/constants');
 const { ErrorHandler } = require('./helpers/error-handler');
 const { apiLimit, jsonLimit } = require('./config/rate-limit.json');
 
 dotenv.config();
 
 const app = express();
-
-require('./config/config-passport');
 
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
 const accessLogStream = fs.createWriteStream(
@@ -46,6 +44,7 @@ app.use(
 );
 
 app.use('/api/users', usersRouter);
+app.use('/api/books', booksRouter);
 
 app.use((req, res, _next) => {
   res.status(httpCode.NOT_FOUND).json({

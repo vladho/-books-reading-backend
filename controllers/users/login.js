@@ -1,39 +1,45 @@
-const jwt = require("jsonwebtoken");
-const { userService: services } = require("../../services");
-const httpCode = require("../../helpers/constants");
-require("dotenv").config();
+const jwt = require('jsonwebtoken');
+const { userService: services } = require('../../services');
+const httpCode = require('../../helpers/constants');
+require('dotenv').config();
+
+const { JWT_SECRET_KEY } = process.env;
 
 const login = async (req, res, next) => {
   const { email, password } = req.body;
+
   try {
     const user = await services.getUserByEmail(email);
-    // console.log(password);
-    if (!user || !user.validPassword(password)) {
+
+    if (!user) {
       return res.status(httpCode.UNAUTHORIZED).json({
-        status: "error",
+        status: 'error',
         code: httpCode.UNAUTHORIZED,
-        message: "Invalid email or password",
+        message: 'Invalid email',
       });
     }
-    if (!email || !password) {
-      res.status(httpCode.BAD_REQUEST).json({
-        status: "error",
-        code: httpCode.BAD_REQUEST,
-        message: "Missing some fields",
+
+    const isValidPassport = await user.validPassword(password);
+    if (user.validPassword(password) === null || !isValidPassport) {
+      return res.status(httpCode.UNAUTHORIZED).json({
+        status: 'error',
+        code: httpCode.UNAUTHORIZED,
+        message: 'Invalid Credentials!',
       });
     }
+
     const payload = {
       id: user._id,
     };
-    const { JWT_SECRET_KEY } = process.env;
-    const token = jwt.sign(payload, JWT_SECRET_KEY);
+    const token = jwt.sign(payload, JWT_SECRET_KEY, { expiresIn: '8h' });
     user.token = token;
     res.json({
-      status: "success",
+      status: 'success',
       code: httpCode.OK,
       data: {
-        token: user.token,
         user: {
+          token: user.token,
+          name: user.name,
           email: user.email,
         },
       },
