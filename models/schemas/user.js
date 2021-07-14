@@ -38,8 +38,8 @@ userSchema.pre('save', function (next) {
     return next();
   }
 
-  const salt = bcrypt.genSalt(SALT_FACTOR);
-  this.password = bcrypt.hash(this.password, salt, null);
+  const salt = bcrypt.genSaltSync(SALT_FACTOR);
+  this.password = bcrypt.hashSync(this.password, salt, null);
   next();
 });
 
