@@ -21,10 +21,12 @@ const trainingSchema = new Schema(
         type: Number,
       },
     },
-    books: {
-      type: SchemaTypes.ObjectId,
-      ref: 'book',
-    },
+    books: [
+      {
+        type: SchemaTypes.ObjectId,
+        ref: 'Book',
+      },
+    ],
   },
   { versionKey: false, timestamps: true }
 );

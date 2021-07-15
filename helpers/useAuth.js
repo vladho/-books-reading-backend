@@ -4,17 +4,24 @@ require('../config/config-passport');
 
 const useAuth = (req, res, next) => {
   passport.authenticate('jwt', { session: false }, (error, user) => {
-    const [, token] = req.get('Authorization').split(' ');
-    if (!user || error || token !== user.token) {
-      return res.status(httpCode.UNAUTHORIZED).json({
+    try {
+      const [, token] = req.get('Authorization').split(' ');
+      if (!user || error || !token) {
+        return res.status(httpCode.UNAUTHORIZED).json({
+          status: 'error',
+          code: httpCode.UNAUTHORIZED,
+          message: 'Not authorized',
+        });
+      }
+      req.user = user;
+      next();
+    } catch (error) {
+      return res.status(httpCode.BAD_REQUEST).json({
         status: 'error',
-        code: httpCode.UNAUTHORIZED,
-        message: 'Not authorized',
+        code: httpCode.BAD_REQUEST,
+        message: 'Missing Bearer token in Authorization',
       });
     }
-    req.user = user;
-    next();
-    // return next()
   })(req, res, next);
 };
 

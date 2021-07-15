@@ -1,11 +1,11 @@
 const { Book } = require('../models');
 
 const getAll = (filter) => {
-  //   return Book.find(filter);
+  return Book.find(filter);
 };
 
 const getOne = (id) => {
-  //   return Book.findById(id);
+  return Book.findById(id);
 };
 
 const addOne = async (body) => {
@@ -17,4 +17,8 @@ const addOne = async (body) => {
   }
 };
 
-module.exports = { getAll, getOne, addOne };
+const deleteOne = (id) => {
+  return Book.findByIdAndDelete(id);
+};
+
+module.exports = { getAll, getOne, addOne, deleteOne };
