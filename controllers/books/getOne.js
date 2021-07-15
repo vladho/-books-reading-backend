@@ -1,5 +1,5 @@
 const { bookService: services } = require('../../services');
-const httpCode = require('../../helpers/constants');
+const { httpCode } = require('../../helpers/constants');
 
 const getOne = async (req, res, next) => {
   const { bookId } = req.params;

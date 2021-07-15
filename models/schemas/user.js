@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const { Schema } = require('mongoose');
+const { Schema, SchemaTypes } = require('mongoose');
 
 const SALT_FACTOR = 10;
 
@@ -13,6 +13,7 @@ const userSchema = new Schema(
     email: {
       type: String,
       unique: true,
+      lowercase: true,
       required: [true, 'Email is required'],
       validate(value) {
         const re = /[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+/;
@@ -24,6 +25,14 @@ const userSchema = new Schema(
       minLength: 8,
       maxLength: 20,
       required: [true, 'Password is required'],
+    },
+    books: {
+      type: SchemaTypes.ObjectId,
+      ref: 'book',
+    },
+    training: {
+      type: SchemaTypes.ObjectId,
+      ref: 'training',
     },
     token: {
       type: String,

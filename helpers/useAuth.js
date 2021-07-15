@@ -1,5 +1,5 @@
 const passport = require('passport');
-const httpCode = require('../helpers/constants');
+const { httpCode } = require('../helpers/constants');
 require('../config/config-passport');
 
 const useAuth = (req, res, next) => {
