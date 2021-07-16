@@ -3,14 +3,9 @@ const { httpCode } = require('../../helpers/constants');
 
 const addTraining = async (req, res, next) => {
   const { startDate, finishDate } = req.body;
-  console.log('controllers -> training -> req.body:', req.body);
+  // console.log('controllers -> training -> req.body:', req.body);
 
   try {
-    const training = await services.addTraining({
-      startDate,
-      finishDate,
-    });
-
     if (!startDate || !finishDate) {
       return res.status(httpCode.BAD_REQUEST).json({
         status: 'error',
@@ -19,6 +14,10 @@ const addTraining = async (req, res, next) => {
       });
     }
 
+    const training = await services.addTraining({
+      startDate,
+      finishDate,
+    });
     res.status(httpCode.CREATED).json({
       status: 'success',
       code: httpCode.CREATED,

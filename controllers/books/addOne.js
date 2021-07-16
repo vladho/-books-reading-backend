@@ -5,16 +5,15 @@ const addOne = async (req, res, next) => {
   const { title, author, year, totalPages } = req.body;
 
   try {
-    const book = await services.addOne({ title, author, year, totalPages });
-
     if (!title || !author || !year || !totalPages) {
       return res.status(httpCode.BAD_REQUEST).json({
         status: 'error',
         code: httpCode.BAD_REQUEST,
-        message: 'Missing some fields',
+        message: 'Missing or bad name of some fields',
       });
     }
 
+    const book = await services.addOne({ title, author, year, totalPages });
     res.status(httpCode.CREATED).json({
       status: 'success',
       code: httpCode.CREATED,

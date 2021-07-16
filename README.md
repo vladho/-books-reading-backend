@@ -9,7 +9,7 @@
 
 ////Postman requests////
 
-//=======================users=================//
+//=======================USERS=================//
 
 SIGNUP:
 
@@ -55,10 +55,13 @@ POST http://localhost:8080/api/users/logout
 
 require Authorization Type Bearer Token (which you get in response after login)
 
-response 204 No Content
-!!!empty response body is OK if 204!!!
+response: {
+"status":"success",
+"code":204,
+"message":"Success logout"
+}
 
-//==========================books========================//
+//==========================BOOKS========================//
 
 ADD ONE:
 
@@ -74,10 +77,24 @@ require body: {
 }, JSON
 
 response: {
-"status": "success",
-"code": 201,
-"message": "Book added",
-"data": {}
+"status":"success",
+"code":201,
+"message":"Book added",
+"data":
+{
+"book":
+{
+"readPages":0,
+"rating":0,
+"status":"plan",
+"_id":"60f091710d3cbf4eef55fdec",
+"title":"Guard!",
+"author":"T.J.Pratchett",
+"year":2000,
+"totalPages":200,
+"createdAt":"2021-07-15T19:50:09.132Z",
+"updatedAt":"2021-07-15T19:50:09.132Z"}
+}
 }
 
 GET ALL:
@@ -85,16 +102,102 @@ GET ALL:
 GET http://localhost:8080/api/books
 
 response: {
-"status": "success",
-"code": 200
-}
+"status":"success",
+"code":200,
+"data":
+{
+"result":
+[
+{
+"readPages":0,
+"rating":0,
+"status":"plan",
+"_id":"60ef3bb1c5920cf6447ddf16",
+"title":"Test5",
+"author":"Test5",
+"year":2002,
+"totalPages":120,
+"createdAt":"2021-07-14T19:32:01.155Z",
+"updatedAt":"2021-07-14T19:32:01.155Z"
+},
+{
+"readPages":0,
+"rating":0,
+"status":"plan",
+"_id":"60f021574f84913ecf3cbbfe",
+"title":"Test 15/07/2021",
+"author":"Demy",
+"year":2002,
+"totalPages":120,
+"createdAt":"2021-07-15T11:51:51.101Z",
+"updatedAt":"2021-07-15T11:51:51.101Z"}
 
 GET ONE:
 
 GET http://localhost:8080/api/books/:bookId
 
 response: {
-"status": "success",
-"code": 200,
-"data": {}
+"status":"success",
+"code":200,
+"data":
+{
+"result":
+{
+"readPages":0,
+"rating":0,
+"status":"plan",
+"_id":"60f07e29b3bc654cd2f6def5",
+"title":"Guard!","author":"T.J.Pratchett",
+"year":2000,"totalPages":200,
+"createdAt":"2021-07-15T18:27:53.321Z",
+"updatedAt":"2021-07-15T18:27:53.321Z"}
+}
+}
+
+DELETE ONE:
+
+POST http://localhost:8080/api/books
+
+require Authorization Type Bearer Token (which you get in response after login)
+
+require body: {
+"name":"Guard!",
+"author":"T.J.Pratchett",
+"year":"2000",
+"pages":"200"
+}, JSON
+
+response: {
+"status":"success",
+"code":204,
+"message":"Book deleted"
+}
+
+//==========================TRANING========================//
+
+ADD:
+
+POST http://localhost:8080/api/training
+
+require Authorization Type Bearer Token (which you get in response after login)
+
+require body: {
+"startDate":"32323",
+"finishDate":"232323"
+}, JSON
+
+response: {
+"status":"success",
+"code":201,
+"message":"Training added",
+"data":
+{
+"training":
+{
+"_id":"60f0a60cdcd8b6511bac8b29",
+"startDate":"32323",
+"finishDate":"232323",
+"createdAt":"2021-07-15T21:18:04.960Z",
+"updatedAt":"2021-07-15T21:18:04.960Z"}
+}
 }

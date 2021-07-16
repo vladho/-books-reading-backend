@@ -7,7 +7,7 @@ const dotenv = require('dotenv');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const { usersRouter, booksRouter, trainingRouter } = require('./routes/api');
-const httpCode = require('./helpers/constants');
+const { httpCode } = require('./helpers/constants');
 const { ErrorHandler } = require('./helpers/error-handler');
 const { apiLimit, jsonLimit } = require('./config/rate-limit.json');
 

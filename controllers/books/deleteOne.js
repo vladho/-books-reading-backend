@@ -1,7 +1,7 @@
-const { bookService: services } = require('../../services');
 const { httpCode } = require('../../helpers/constants');
+const { bookService: services } = require('../../services');
 
-const getOne = async (req, res, next) => {
+const deleteOne = async (req, res, next) => {
   const { bookId } = req.params;
   try {
     const result = await services.getOne(bookId);
@@ -12,12 +12,11 @@ const getOne = async (req, res, next) => {
         message: 'Book not found',
       });
     }
-    res.json({
+    await services.deleteOne(bookId);
+    res.status(httpCode.OK).json({
       status: 'success',
-      code: httpCode.OK,
-      data: {
-        result,
-      },
+      code: 204,
+      message: 'Book deleted',
     });
   } catch (error) {
     return res.status(httpCode.BAD_REQUEST).json({
@@ -28,4 +27,4 @@ const getOne = async (req, res, next) => {
   }
 };
 
-module.exports = getOne;
+module.exports = deleteOne;
