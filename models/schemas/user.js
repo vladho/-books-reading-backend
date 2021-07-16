@@ -26,14 +26,17 @@ const userSchema = new Schema(
       maxLength: 20,
       required: [true, 'Password is required'],
     },
-    books: {
-      type: SchemaTypes.ObjectId,
-      ref: 'book',
-    },
+    books: [
+      {
+        type: SchemaTypes.ObjectId,
+        ref: 'book',
+      },
+    ],
     training: {
       type: SchemaTypes.ObjectId,
       ref: 'training',
     },
+
     token: {
       type: String,
       default: null,

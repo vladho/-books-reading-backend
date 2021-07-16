@@ -2,7 +2,7 @@ const { User } = require('../models');
 
 const getUserByEmail = async (email) => {
   try {
-    return await User.findOne({ email });
+    return await User.findOne({ email }).populate('books').populate('training');
   } catch (error) {
     throw new Error(error.message);
   }
@@ -25,6 +25,10 @@ const addUser = async (body) => {
   }
 };
 
+const updateUser = (id, body) => {
+  return User.findByIdAndUpdate(id, body, { new: true });
+};
+
 const updateToken = async (id, token) => {
   try {
     return await User.updateOne({ _id: id }, { token });
@@ -37,6 +41,7 @@ const userService = {
   getUserByEmail,
   getUserById,
   addUser,
+  updateUser,
   updateToken,
 };
 

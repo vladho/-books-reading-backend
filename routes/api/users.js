@@ -12,4 +12,6 @@ router.post('/login', validateLogin, ctrl.login);
 
 router.post('/logout', useAuth, ctrl.logout);
 
+router.post('/:userId', ctrl.updateUser)
+
 module.exports = router;

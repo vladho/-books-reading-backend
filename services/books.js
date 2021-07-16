@@ -1,4 +1,5 @@
 const { Book } = require('../models');
+const { User } = require('../models');
 
 const getAll = (filter) => {
   return Book.find(filter);
@@ -8,10 +9,20 @@ const getOne = (id) => {
   return Book.findById(id);
 };
 
-const addOne = async (body) => {
+const addOne = async (userId, body) => {
   try {
-    const book = new Book(body);
-    return await book.save();
+    const book = await Book.create(body);
+    await User.findByIdAndUpdate(
+      userId,
+      {
+      $push:{
+        books: book._id
+    }
+  },
+    {
+      new: true,
+    })
+    return book
   } catch (error) {
     throw new Error(error.message);
   }

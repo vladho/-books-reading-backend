@@ -1,10 +1,19 @@
 const { Training } = require('../models');
+const { User } = require('../models');
 
-const addTraining = async (body) => {
+const addTraining = async (userId, body) => {
   try {
-    const training = new Training(body);
-    // console.log('servise -> training:', training);
-    return await training.save();
+    const training = await Training.create(body);
+    await User.findByIdAndUpdate(
+      userId,
+      {
+        training: training._id,
+      },
+      {
+        new: true,
+      }
+    );
+    return training;
   } catch (error) {
     throw new Error(error.message);
   }
