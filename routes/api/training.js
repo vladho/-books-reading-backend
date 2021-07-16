@@ -5,4 +5,6 @@ const useAuth = require('../../helpers/useAuth');
 
 router.post('/', useAuth, ctrl.addTraining);
 
+router.get('/', ctrl.getAll);
+
 module.exports = router;

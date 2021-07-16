@@ -10,6 +10,11 @@ const addTraining = async (body) => {
   }
 };
 
+const getAll = (filter) => {
+  return Training.find(filter).populate('books');
+};
+
 module.exports = {
   addTraining,
+  getAll,
 };

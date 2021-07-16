@@ -24,7 +24,7 @@ const trainingSchema = new Schema(
     books: [
       {
         type: SchemaTypes.ObjectId,
-        ref: 'Book',
+        ref: 'book',
       },
     ],
   },
