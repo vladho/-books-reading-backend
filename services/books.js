@@ -31,26 +31,22 @@ const addOne = async (userId, body) => {
 };
 
 const deleteOne = async (userId, id) => {
-  console.log(id);
   try {
     await User.findByIdAndUpdate(
       userId,
       {
         $pull: {
-          books: {
-            _id: id,
-          },
+          books: id,
         },
       },
       {
         new: true,
       }
     );
+    return Book.findByIdAndDelete(id);
   } catch (error) {
     throw error;
   }
-  return;
-  // Book.findByIdAndDelete(id);
 };
 
 module.exports = { getAll, getOne, addOne, deleteOne };
