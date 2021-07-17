@@ -7,6 +7,7 @@ const getAll = (filter) => {
 
 const getOne = (id) => {
   return Book.findById(id);
+  // console.log(newBook);
 };
 
 const addOne = async (userId, body) => {
@@ -15,21 +16,41 @@ const addOne = async (userId, body) => {
     await User.findByIdAndUpdate(
       userId,
       {
-      $push:{
-        books: book._id
-    }
-  },
-    {
-      new: true,
-    })
-    return book
+        $push: {
+          books: book._id,
+        },
+      },
+      {
+        new: true,
+      }
+    );
+    return book;
   } catch (error) {
     throw new Error(error.message);
   }
 };
 
-const deleteOne = (id) => {
-  return Book.findByIdAndDelete(id);
+const deleteOne = async (userId, id) => {
+  console.log(id);
+  try {
+    await User.findByIdAndUpdate(
+      userId,
+      {
+        $pull: {
+          books: {
+            _id: id,
+          },
+        },
+      },
+      {
+        new: true,
+      }
+    );
+  } catch (error) {
+    throw error;
+  }
+  return;
+  // Book.findByIdAndDelete(id);
 };
 
 module.exports = { getAll, getOne, addOne, deleteOne };

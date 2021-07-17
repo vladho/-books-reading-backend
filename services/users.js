@@ -2,7 +2,15 @@ const { User } = require('../models');
 
 const getUserByEmail = async (email) => {
   try {
-    return await User.findOne({ email }).populate('books').populate('training');
+    return await User.findOne({ email })
+      .populate({
+        path: 'books',
+        select: '-createdAt -updatedAt',
+      })
+      .populate({
+        path: 'training',
+        select: '-createdAt -updatedAt',
+      });
   } catch (error) {
     throw new Error(error.message);
   }
