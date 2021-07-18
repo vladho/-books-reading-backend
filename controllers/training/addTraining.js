@@ -18,12 +18,13 @@ const addTraining = async (req, res, next) => {
       finishDate,
       books,
     });
+    const result = await services.getOne(training._id);
     res.status(httpCode.CREATED).json({
       status: 'success',
       code: httpCode.CREATED,
       message: 'Training added',
       data: {
-        training,
+        result,
       },
     });
   } catch (error) {
