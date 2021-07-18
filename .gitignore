@@ -110,3 +110,4 @@ dist
 #lock file
 package-lock.json
 yarn.lock
+config-keys.js
