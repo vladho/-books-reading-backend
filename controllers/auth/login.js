@@ -40,6 +40,8 @@ const login = async (req, res, next) => {
           token: user.token,
           name: user.name,
           email: user.email,
+          books: user.books,
+          training: user.training,
         },
       },
     });
