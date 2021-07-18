@@ -11,9 +11,9 @@
 
 //=======================USERS=================//
 
-SIGNUP:
+REGISTER:
 
-POST http://localhost:8080/api/users/signup
+POST http://localhost:8080/api/auth/register
 
 require body: {
 "email":"terrypratchett@mail.com",
@@ -32,7 +32,7 @@ response: {
 
 LOGIN:
 
-POST http://localhost:8080/api/users/login
+POST http://localhost:8080/api/auth/login
 
 require body: {
 "email":"terrypratchett@mail.com",
@@ -51,7 +51,7 @@ response: {
 
 LOGOUT:
 
-POST http://localhost:8080/api/users/logout
+POST http://localhost:8080/api/auth/logout
 
 require Authorization Type Bearer Token (which you get in response after login)
 
@@ -87,7 +87,7 @@ response: {
 "readPages":0,
 "rating":0,
 "status":"plan",
-"_id":"60f091710d3cbf4eef55fdec",
+"\_id":"60f091710d3cbf4eef55fdec",
 "title":"Guard!",
 "author":"T.J.Pratchett",
 "year":2000,
@@ -112,7 +112,7 @@ response: {
 "readPages":0,
 "rating":0,
 "status":"plan",
-"_id":"60ef3bb1c5920cf6447ddf16",
+"\_id":"60ef3bb1c5920cf6447ddf16",
 "title":"Test5",
 "author":"Test5",
 "year":2002,
@@ -124,7 +124,7 @@ response: {
 "readPages":0,
 "rating":0,
 "status":"plan",
-"_id":"60f021574f84913ecf3cbbfe",
+"\_id":"60f021574f84913ecf3cbbfe",
 "title":"Test 15/07/2021",
 "author":"Demy",
 "year":2002,
@@ -146,7 +146,7 @@ response: {
 "readPages":0,
 "rating":0,
 "status":"plan",
-"_id":"60f07e29b3bc654cd2f6def5",
+"\_id":"60f07e29b3bc654cd2f6def5",
 "title":"Guard!","author":"T.J.Pratchett",
 "year":2000,"totalPages":200,
 "createdAt":"2021-07-15T18:27:53.321Z",
@@ -194,7 +194,7 @@ response: {
 {
 "training":
 {
-"_id":"60f0a60cdcd8b6511bac8b29",
+"\_id":"60f0a60cdcd8b6511bac8b29",
 "startDate":"32323",
 "finishDate":"232323",
 "createdAt":"2021-07-15T21:18:04.960Z",

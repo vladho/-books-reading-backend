@@ -1,7 +1,7 @@
 const { userService: services } = require('../../services');
 const { httpCode } = require('../../helpers/constants');
 
-const signup = async (req, res, next) => {
+const register = async (req, res, next) => {
   const { name, email, password } = req.body;
   try {
     const user = await services.getUserByEmail(email);
@@ -43,4 +43,4 @@ const signup = async (req, res, next) => {
   }
 };
 
-module.exports = signup;
+module.exports = register;

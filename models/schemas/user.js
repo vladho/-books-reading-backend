@@ -26,6 +26,12 @@ const userSchema = new Schema(
       maxLength: 20,
       required: [true, 'Password is required'],
     },
+    avatar: {
+      type: String,
+    },
+    googleId: {
+      type: String,
+    },
     books: {
       type: SchemaTypes.ObjectId,
       ref: 'book',
@@ -34,10 +40,10 @@ const userSchema = new Schema(
       type: SchemaTypes.ObjectId,
       ref: 'training',
     },
-    token: {
-      type: String,
-      default: null,
-    },
+    // token: {
+    //   type: String,
+    //   default: null,
+    // },
   },
   { versionKey: false, timestamps: true }
 );

@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const { httpCode } = require('../helpers/constants');
 
-const schemaSignup = Joi.object({
+const schemaRegister = Joi.object({
   name: Joi.string().alphanum().min(2).max(30).optional(),
   email: Joi.string()
     .email({
@@ -30,8 +30,8 @@ const validate = (schema, body, next) => {
   next();
 };
 
-module.exports.validateSignup = (req, _res, next) => {
-  return validate(schemaSignup, req.body, next);
+module.exports.validateRegister = (req, _res, next) => {
+  return validate(schemaRegister, req.body, next);
 };
 
 module.exports.validateLogin = (req, _res, next) => {

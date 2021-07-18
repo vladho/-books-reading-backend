@@ -1,9 +1,9 @@
-const users = require('./users');
+const auth = require('./auth');
 const books = require('./books');
 const training = require('./training');
 
 module.exports = {
-  users,
+  auth,
   books,
   training,
 };
