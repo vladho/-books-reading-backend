@@ -2,6 +2,7 @@ const { httpCode } = require('../../helpers/constants');
 const { bookService: services } = require('../../services');
 
 const deleteOne = async (req, res, next) => {
+  const { _id: userId } = req.user;
   const { bookId } = req.params;
   try {
     const result = await services.getOne(bookId);
@@ -12,7 +13,7 @@ const deleteOne = async (req, res, next) => {
         message: 'Book not found',
       });
     }
-    await services.deleteOne(bookId);
+    await services.deleteOne(userId, bookId);
     res.status(httpCode.OK).json({
       status: 'success',
       code: 204,

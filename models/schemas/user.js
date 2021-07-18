@@ -1,5 +1,8 @@
 const bcrypt = require('bcryptjs');
-const { Schema, SchemaTypes } = require('mongoose');
+const {
+  Schema,
+  Types: { ObjectId },
+} = require('mongoose');
 
 const SALT_FACTOR = 10;
 
@@ -26,14 +29,17 @@ const userSchema = new Schema(
       maxLength: 20,
       required: [true, 'Password is required'],
     },
-    books: {
-      type: SchemaTypes.ObjectId,
-      ref: 'book',
-    },
+    books: [
+      {
+        type: ObjectId,
+        ref: 'book',
+      },
+    ],
     training: {
-      type: SchemaTypes.ObjectId,
+      type: ObjectId,
       ref: 'training',
     },
+
     token: {
       type: String,
       default: null,

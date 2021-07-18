@@ -1,4 +1,5 @@
 const { Book } = require('../models');
+const { User } = require('../models');
 
 const getAll = (filter) => {
   return Book.find(filter);
@@ -6,19 +7,46 @@ const getAll = (filter) => {
 
 const getOne = (id) => {
   return Book.findById(id);
+  // console.log(newBook);
 };
 
-const addOne = async (body) => {
+const addOne = async (userId, body) => {
   try {
-    const book = new Book(body);
-    return await book.save();
+    const book = await Book.create(body);
+    await User.findByIdAndUpdate(
+      userId,
+      {
+        $push: {
+          books: book._id,
+        },
+      },
+      {
+        new: true,
+      }
+    );
+    return book;
   } catch (error) {
     throw new Error(error.message);
   }
 };
 
-const deleteOne = (id) => {
-  return Book.findByIdAndDelete(id);
+const deleteOne = async (userId, id) => {
+  try {
+    await User.findByIdAndUpdate(
+      userId,
+      {
+        $pull: {
+          books: id,
+        },
+      },
+      {
+        new: true,
+      }
+    );
+    return Book.findByIdAndDelete(id);
+  } catch (error) {
+    throw error;
+  }
 };
 
 module.exports = { getAll, getOne, addOne, deleteOne };

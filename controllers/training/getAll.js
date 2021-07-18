@@ -1,4 +1,4 @@
-const { bookService: services } = require('../../services');
+const { trainingService: services } = require('../../services');
 const { httpCode } = require('../../helpers/constants');
 
 const getAll = async (req, res, next) => {

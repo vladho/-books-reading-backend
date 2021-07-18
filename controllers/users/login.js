@@ -7,7 +7,6 @@ const { JWT_SECRET_KEY } = process.env;
 
 const login = async (req, res, next) => {
   const { email, password } = req.body;
-
   try {
     const user = await services.getUserByEmail(email);
     const isValidPassport = await user.validPassword(password);
@@ -40,6 +39,8 @@ const login = async (req, res, next) => {
           token: user.token,
           name: user.name,
           email: user.email,
+          books: user.books,
+          training: user.training,
         },
       },
     });

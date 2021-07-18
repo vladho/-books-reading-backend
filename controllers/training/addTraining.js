@@ -2,9 +2,8 @@ const { trainingService: services } = require('../../services');
 const { httpCode } = require('../../helpers/constants');
 
 const addTraining = async (req, res, next) => {
-  const { startDate, finishDate } = req.body;
-  // console.log('controllers -> training -> req.body:', req.body);
-
+  const { _id: userId } = req.user;
+  const { startDate, finishDate, books } = req.body;
   try {
     if (!startDate || !finishDate) {
       return res.status(httpCode.BAD_REQUEST).json({
@@ -14,16 +13,18 @@ const addTraining = async (req, res, next) => {
       });
     }
 
-    const training = await services.addTraining({
+    const training = await services.addTraining(userId, {
       startDate,
       finishDate,
+      books,
     });
+    const result = await services.getOne(training._id);
     res.status(httpCode.CREATED).json({
       status: 'success',
       code: httpCode.CREATED,
       message: 'Training added',
       data: {
-        training,
+        result,
       },
     });
   } catch (error) {
