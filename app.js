@@ -3,15 +3,20 @@ const path = require('path');
 const express = require('express');
 const logger = require('morgan');
 const cors = require('cors');
-const dotenv = require('dotenv');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
-const { usersRouter, booksRouter, trainingRouter } = require('./routes/api');
+const cookieSession = require('cookie-session');
+const passport = require('passport');
+const { authRouter, booksRouter, trainingRouter } = require('./routes/api');
 const { httpCode } = require('./helpers/constants');
 const { ErrorHandler } = require('./helpers/error-handler');
-const { apiLimit, jsonLimit } = require('./config/rate-limit.json');
-
-dotenv.config();
+const {
+  apiLimit,
+  jsonLimit,
+  cookieLimit,
+} = require('./config/rate-limit.json');
+const keys = require('./config/config-keys');
+require('dotenv').config();
 
 const app = express();
 
@@ -20,6 +25,17 @@ const accessLogStream = fs.createWriteStream(
   path.join(__dirname, 'access.log'),
   { flags: 'a' }
 );
+
+app.use(
+  cookieSession({
+    name: 'user-session',
+    maxAge: cookieLimit.maxAge,
+    keys: [keys.session.cookieKey],
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(helmet());
 app.use(cors());
@@ -43,7 +59,7 @@ app.use(
   })
 );
 
-app.use('/api/users', usersRouter);
+app.use('/api/auth', authRouter);
 app.use('/api/books', booksRouter);
 app.use('/api/training', trainingRouter);
 
@@ -51,7 +67,7 @@ app.use((req, res, _next) => {
   res.status(httpCode.NOT_FOUND).json({
     status: 'error',
     code: httpCode.NOT_FOUND,
-    message: `Use api on routes: ${req.baseUrl}/api/users`,
+    message: `Use api on routes: ${req.baseUrl}/api/auth/register`,
     data: 'Not Found',
   });
 });

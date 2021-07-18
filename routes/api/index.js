@@ -1,9 +1,9 @@
-const usersRouter = require('./users');
+const authRouter = require('./auth');
 const booksRouter = require('./books');
 const trainingRouter = require('./training');
 
 module.exports = {
-  usersRouter,
+  authRouter,
   booksRouter,
   trainingRouter,
 };
