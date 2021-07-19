@@ -17,6 +17,7 @@ const addTraining = async (req, res, next) => {
       startDate,
       finishDate,
       books,
+      user: userId,
     });
     const result = await services.getOne(training._id);
     res.status(httpCode.CREATED).json({

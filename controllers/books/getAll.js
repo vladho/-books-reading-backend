@@ -5,13 +5,13 @@ const getAll = async (req, res, next) => {
   const { query } = req;
   try {
     const result = await services.getAll(query);
-    // if (!result) {
-    //   return res.status(httpCode.BAD_REQUEST).json({
-    //     status: 'fail',
-    //     code: httpCode.BAD_REQUEST,
-    //     message: 'Missing query',
-    //   });
-    // }
+    if (!result) {
+      return res.status(httpCode.BAD_REQUEST).json({
+        status: 'fail',
+        code: httpCode.BAD_REQUEST,
+        message: 'Missing query',
+      });
+    }
     res.json({
       status: 'success',
       code: httpCode.OK,

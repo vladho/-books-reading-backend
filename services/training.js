@@ -20,15 +20,22 @@ const addTraining = async (userId, body) => {
 };
 
 const getAll = (filter) => {
-  return Training.find(filter).populate('books');
+  return Training.find(filter).populate('books').populate('user');
 };
 
 const getOne = (id) => {
-  return Training.findById(id).populate('books');
+  return Training.findById(id).populate('books').populate('user');
+};
+
+const updateOne = (id, body) => {
+  return Training.findByIdAndUpdate(id, body, { new: true })
+    .populate('books')
+    .populate('user');
 };
 
 module.exports = {
   addTraining,
   getAll,
   getOne,
+  updateOne,
 };

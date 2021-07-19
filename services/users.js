@@ -18,7 +18,15 @@ const getUserByEmail = async (email) => {
 
 const getUserById = async (id) => {
   try {
-    return await User.findOne({ _id: id });
+    return await User.findOne({ _id: id })
+      .populate({
+        path: 'books',
+        select: '-createdAt -updatedAt',
+      })
+      .populate({
+        path: 'training',
+        select: '-createdAt -updatedAt',
+      });
   } catch (error) {
     throw new Error(error.message);
   }
