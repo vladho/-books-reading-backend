@@ -32,13 +32,16 @@ const userSchema = new Schema(
     googleId: {
       type: String,
     },
-    books: {
-      type: SchemaTypes.ObjectId,
-      ref: 'book',
-    },
+    books: [
+      {
+        type: SchemaTypes.ObjectId,
+        ref: 'book',
+      },
+    ],
     training: {
       type: SchemaTypes.ObjectId,
       ref: 'training',
+      default: null,
     },
     // token: {
     //   type: String,
