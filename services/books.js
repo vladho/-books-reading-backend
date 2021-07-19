@@ -45,8 +45,18 @@ const deleteOne = async (userId, id) => {
     );
     return Book.findByIdAndDelete(id);
   } catch (error) {
-    throw error;
+    throw new Error(error.message);
   }
+
+  // try {
+  // } catch (error) {
+  //   throw error;
+  // }
 };
 
-module.exports = { getAll, getOne, addOne, deleteOne };
+module.exports = {
+  getAll,
+  getOne,
+  addOne,
+  deleteOne,
+};

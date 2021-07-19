@@ -3,8 +3,11 @@ const { httpCode } = require('../../helpers/constants');
 
 const update = async (req, res, next) => {
   const { trainingId } = req.params;
+  const { body } = req;
+
   try {
-    const training = await services.updateOne(trainingId, req.body);
+    const training = await services.updateOne(trainingId, body);
+
     if (!training) {
       return res.status(httpCode.BAD_REQUEST).json({
         status: 'fail',
@@ -12,10 +15,13 @@ const update = async (req, res, next) => {
         message: 'Missing Id',
       });
     }
+
     res.json({
-      status: 'Traning updated',
+      status: 'Training updated',
       code: httpCode.OK,
-      data: { training },
+      data: {
+        training,
+      },
     });
   } catch (error) {
     next(error);

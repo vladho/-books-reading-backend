@@ -1,12 +1,10 @@
-const jwt = require('jsonwebtoken');
 const { userService: services } = require('../../services');
 const { httpCode } = require('../../helpers/constants');
 require('dotenv').config();
 
-const { JWT_SECRET_KEY } = process.env;
-
 const register = async (req, res, next) => {
   const { name, email, password } = req.body;
+
   try {
     const user = await services.getUserByEmail(email);
 
@@ -28,12 +26,6 @@ const register = async (req, res, next) => {
 
     const newUser = await services.addUser({ name, email, password });
 
-    const payload = {
-      id: newUser._id,
-    };
-    const token = jwt.sign(payload, JWT_SECRET_KEY, { expiresIn: '8h' });
-    newUser.token = token;
-
     res.status(httpCode.CREATED).json({
       status: 'success',
       code: httpCode.CREATED,
@@ -41,7 +33,6 @@ const register = async (req, res, next) => {
       data: {
         user: {
           id: newUser._id,
-          token: newUser.token,
           name: newUser.name,
           email: newUser.email,
           books: newUser.books,

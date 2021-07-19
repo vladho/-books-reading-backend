@@ -9,6 +9,7 @@ router.get('/:bookId', useAuth, ctrl.getOne);
 
 router.post('/', useAuth, ctrl.addOne);
 
-router.post('/:bookId', useAuth, ctrl.deleteOne);
+// router.post('/:bookId', useAuth, ctrl.deleteOne);
+router.delete('/:bookId', useAuth, ctrl.deleteOne);
 
 module.exports = router;

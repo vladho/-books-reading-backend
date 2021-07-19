@@ -43,10 +43,10 @@ const userSchema = new Schema(
       ref: 'training',
       default: null,
     },
-    // token: {
-    //   type: String,
-    //   default: null,
-    // },
+    token: {
+      type: String,
+      default: null,
+    },
   },
   { versionKey: false, timestamps: true }
 );

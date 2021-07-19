@@ -4,8 +4,10 @@ const { bookService: services } = require('../../services');
 const deleteOne = async (req, res, next) => {
   const { _id: userId } = req.user;
   const { bookId } = req.params;
+
   try {
     const result = await services.getOne(bookId);
+
     if (!result) {
       return res.status(httpCode.BAD_REQUEST).json({
         status: 'fail',
@@ -13,10 +15,12 @@ const deleteOne = async (req, res, next) => {
         message: 'Book not found',
       });
     }
+
     await services.deleteOne(userId, bookId);
+
     res.status(httpCode.OK).json({
       status: 'success',
-      code: 204,
+      code: httpCode.NO_CONTENT,
       message: 'Book deleted',
     });
   } catch (error) {

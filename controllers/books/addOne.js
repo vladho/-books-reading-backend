@@ -4,6 +4,7 @@ const { httpCode } = require('../../helpers/constants');
 const addOne = async (req, res, next) => {
   const { _id: userId } = req.user;
   const { title, author, year, totalPages } = req.body;
+
   try {
     if (!title || !author || !year || !totalPages) {
       return res.status(httpCode.BAD_REQUEST).json({
@@ -19,6 +20,7 @@ const addOne = async (req, res, next) => {
       year,
       totalPages,
     });
+
     res.status(httpCode.CREATED).json({
       status: 'success',
       code: httpCode.CREATED,

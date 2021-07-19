@@ -10,7 +10,7 @@ const login = async (req, res, next) => {
 
   try {
     const user = await services.getUserByEmail(email);
-    const isValidPassport = await user.validPassword(password);
+
     if (!user) {
       return res.status(httpCode.UNAUTHORIZED).json({
         status: 'error',
@@ -18,6 +18,8 @@ const login = async (req, res, next) => {
         message: 'Invalid email',
       });
     }
+
+    const isValidPassport = await user.validPassword(password);
 
     if (user.validPassword(password) === null || !isValidPassport) {
       return res.status(httpCode.UNAUTHORIZED).json({
@@ -27,21 +29,22 @@ const login = async (req, res, next) => {
       });
     }
 
-    const payload = {
-      id: user._id,
-    };
+    const id = user._id;
+    const payload = { id };
     const token = jwt.sign(payload, JWT_SECRET_KEY, { expiresIn: '8h' });
-    user.token = token;
-    res.json({
+
+    await services.updateToken(id, token);
+
+    res.status(httpCode.OK).json({
       status: 'success',
       code: httpCode.OK,
       data: {
         user: {
-          token: user.token,
           name: user.name,
           email: user.email,
           books: user.books,
           training: user.training,
+          token,
         },
       },
     });
