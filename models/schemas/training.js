@@ -13,6 +13,11 @@ const trainingSchema = new Schema(
     duration: {
       type: Number,
     },
+    //?????
+    inProgress: {
+      type: Boolean,
+      default: false,
+    },
     stats: {
       time: {
         type: String,
@@ -27,6 +32,10 @@ const trainingSchema = new Schema(
         ref: 'book',
       },
     ],
+    user: {
+      type: SchemaTypes.ObjectId,
+      ref: 'user',
+    },
   },
   { versionKey: false, timestamps: true }
 );
