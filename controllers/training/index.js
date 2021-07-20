@@ -1,10 +1,10 @@
-const addTraining = require('./addTraining');
+const addOne = require('./addOne');
 const getAll = require('./getAll');
 const getOne = require('./getOne');
 const updateOne = require('./updateOne');
 
 module.exports = {
-  addTraining,
+  addOne,
   getAll,
   getOne,
   updateOne,

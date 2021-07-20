@@ -13,10 +13,10 @@ const trainingSchema = new Schema(
     duration: {
       type: Number,
     },
-    //?????
+    // Уточнить о необходимости использования
     inProgress: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     stats: {
       time: {

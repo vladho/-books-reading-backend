@@ -11,9 +11,9 @@
 
 //=======================USERS=================//
 
-SIGNUP:
+REGISTER:
 
-POST http://localhost:8080/api/users/signup
+POST http://localhost:8080/api/users/register
 
 require body: {
 "email":"terrypratchett@mail.com",

@@ -3,8 +3,10 @@ const { httpCode } = require('../../helpers/constants');
 
 const getOne = async (req, res) => {
   const { trainingId } = req.params;
+
   try {
     const training = await services.getOne(trainingId);
+
     if (!training) {
       return res.status(httpCode.BAD_REQUEST).json({
         status: 'fail',
@@ -12,10 +14,13 @@ const getOne = async (req, res) => {
         message: 'Training not found',
       });
     }
-    res.json({
+
+    res.status(httpCode.OK).json({
       status: 'success',
       code: httpCode.OK,
-      data: { training },
+      data: {
+        training,
+      },
     });
   } catch (error) {
     return res.status(httpCode.BAD_REQUEST).json({

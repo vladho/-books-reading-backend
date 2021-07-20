@@ -3,8 +3,10 @@ const { httpCode } = require('../../helpers/constants');
 
 const getOne = async (req, res, next) => {
   const { bookId } = req.params;
+
   try {
     const result = await services.getOne(bookId);
+
     if (!result) {
       return res.status(httpCode.BAD_REQUEST).json({
         status: 'fail',
@@ -12,7 +14,8 @@ const getOne = async (req, res, next) => {
         message: 'Book not found',
       });
     }
-    res.json({
+
+    res.status(httpCode.OK).json({
       status: 'success',
       code: httpCode.OK,
       data: {

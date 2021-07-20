@@ -7,6 +7,7 @@ const logout = async (req, res, next) => {
   // console.log('user:', userId);
   try {
     await services.updateToken(userId, null);
+
     res.status(httpCode.OK).json({
       status: 'success',
       code: httpCode.NO_CONTENT,

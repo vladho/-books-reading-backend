@@ -3,6 +3,7 @@ const { httpCode } = require('../../helpers/constants');
 
 const getAll = async (req, res, next) => {
   const { query } = req;
+
   try {
     const result = await services.getAll(query);
     // if (!result) {
@@ -12,10 +13,13 @@ const getAll = async (req, res, next) => {
     //     message: 'Missing query',
     //   });
     // }
-    res.json({
+
+    res.status(httpCode.OK).json({
       status: 'success',
       code: httpCode.OK,
-      data: { result },
+      data: {
+        result,
+      },
     });
   } catch (error) {
     throw new Error(error.message);

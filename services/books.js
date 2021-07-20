@@ -45,8 +45,38 @@ const deleteOne = async (userId, id) => {
     );
     return Book.findByIdAndDelete(id);
   } catch (error) {
-    throw error;
+    throw new Error(error.message);
+  }
+
+  // try {
+  // } catch (error) {
+  //   throw error;
+  // }
+};
+
+const updateOne = async (userId, id, rating, resume) => {
+  try {
+    const book = await Book.findByIdAndUpdate(
+      { _id: id, user: userId },
+      // {
+      //   $set: {
+      //     rating,
+      //     resume,
+      //   },
+      // },
+      { rating, resume },
+      { new: true }
+    ).populate('user');
+    return book;
+  } catch (error) {
+    throw new Error(error.message);
   }
 };
 
-module.exports = { getAll, getOne, addOne, deleteOne };
+module.exports = {
+  getAll,
+  getOne,
+  addOne,
+  deleteOne,
+  updateOne,
+};
