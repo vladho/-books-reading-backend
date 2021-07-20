@@ -1,7 +1,7 @@
 const { trainingService: services } = require('../../services');
 const { httpCode } = require('../../helpers/constants');
 
-const addTraining = async (req, res, next) => {
+const addOne = async (req, res, next) => {
   const { _id: userId } = req.user;
   const { startDate, finishDate, books } = req.body;
 
@@ -14,7 +14,7 @@ const addTraining = async (req, res, next) => {
       });
     }
 
-    const training = await services.addTraining(userId, {
+    const training = await services.addOne(userId, {
       startDate,
       finishDate,
       books,
@@ -36,4 +36,4 @@ const addTraining = async (req, res, next) => {
   }
 };
 
-module.exports = addTraining;
+module.exports = addOne;

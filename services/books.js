@@ -54,9 +54,29 @@ const deleteOne = async (userId, id) => {
   // }
 };
 
+const updateOne = async (userId, id, rating, resume) => {
+  try {
+    const book = await Book.findByIdAndUpdate(
+      { _id: id, user: userId },
+      // {
+      //   $set: {
+      //     rating,
+      //     resume,
+      //   },
+      // },
+      { rating, resume },
+      { new: true }
+    ).populate('user');
+    return book;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
 module.exports = {
   getAll,
   getOne,
   addOne,
   deleteOne,
+  updateOne,
 };

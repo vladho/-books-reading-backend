@@ -1,7 +1,7 @@
 const { trainingService: services } = require('../../services');
 const { httpCode } = require('../../helpers/constants');
 
-const update = async (req, res, next) => {
+const updateOne = async (req, res, next) => {
   const { trainingId } = req.params;
   const { body } = req;
 
@@ -16,7 +16,7 @@ const update = async (req, res, next) => {
       });
     }
 
-    res.json({
+    res.status(httpCode.OK).json({
       status: 'Training updated',
       code: httpCode.OK,
       data: {
@@ -28,4 +28,4 @@ const update = async (req, res, next) => {
   }
 };
 
-module.exports = update;
+module.exports = updateOne;

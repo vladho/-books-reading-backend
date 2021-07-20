@@ -7,7 +7,7 @@ router.get('/', useAuth, ctrl.getAll);
 
 router.get('/:trainingId', useAuth, ctrl.getOne);
 
-router.post('/', useAuth, ctrl.addTraining);
+router.post('/', useAuth, ctrl.addOne);
 
 router.put('/:trainingId', useAuth, ctrl.updateOne);
 

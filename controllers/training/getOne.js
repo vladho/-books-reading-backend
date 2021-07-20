@@ -15,7 +15,7 @@ const getOne = async (req, res) => {
       });
     }
 
-    res.json({
+    res.status(httpCode.OK).json({
       status: 'success',
       code: httpCode.OK,
       data: {
