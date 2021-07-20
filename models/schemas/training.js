@@ -16,7 +16,7 @@ const trainingSchema = new Schema(
     // Уточнить о необходимости использования
     inProgress: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     stats: {
       time: {
