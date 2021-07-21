@@ -8,7 +8,6 @@ const update = async (req, res, next) => {
   try {
     const result = await services.updateOne(userId, body);
 
-    // if (!userId) {
     if (!result) {
       return res.status(httpCode.BAD_REQUEST).json({
         status: 'fail',

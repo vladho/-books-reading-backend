@@ -1,7 +1,7 @@
 const { Training } = require('../models');
 const { User } = require('../models');
 
-const addTraining = async (userId, body) => {
+const addOne = async (userId, body) => {
   try {
     const training = await Training.create(body);
     await User.findByIdAndUpdate(
@@ -19,8 +19,8 @@ const addTraining = async (userId, body) => {
   }
 };
 
-const getAll = (filter) => {
-  return Training.find(filter).populate('books').populate('user');
+const getAll = (userId) => {
+  return Training.find({ user: userId }).populate('books').populate('user');
 };
 
 const getOne = (id) => {
@@ -34,7 +34,7 @@ const updateOne = (id, body) => {
 };
 
 module.exports = {
-  addTraining,
+  addOne,
   getAll,
   getOne,
   updateOne,

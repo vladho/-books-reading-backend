@@ -1,13 +1,12 @@
 const { Book } = require('../models');
 const { User } = require('../models');
 
-const getAll = (filter) => {
-  return Book.find(filter);
+const getAll = (userId) => {
+  return Book.find({ user: userId });
 };
 
 const getOne = (id) => {
   return Book.findById(id);
-  // console.log(newBook);
 };
 
 const addOne = async (userId, body) => {

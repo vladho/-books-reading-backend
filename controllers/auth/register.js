@@ -28,11 +28,11 @@ const register = async (req, res, next) => {
 
     const newUser = await services.addUser({ name, email, password });
 
-    const payload = {
-      id: newUser._id,
-    };
+    const id = newUser._id;
+    const payload = { id };
     const token = jwt.sign(payload, JWT_SECRET_KEY, { expiresIn: '8h' });
-    newUser.token = token;
+
+    await services.updateToken(id, token);
 
     res.status(httpCode.CREATED).json({
       status: 'success',
@@ -41,7 +41,7 @@ const register = async (req, res, next) => {
       data: {
         user: {
           id: newUser._id,
-          token: newUser.token,
+          token: token,
           name: newUser.name,
           email: newUser.email,
           books: newUser.books,
