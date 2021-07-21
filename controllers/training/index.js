@@ -1,11 +1,11 @@
 const addOne = require('./addOne');
-const getAll = require('./getAll');
+const getCurrent = require('./getCurrent');
 const getOne = require('./getOne');
 const updateOne = require('./updateOne');
 
 module.exports = {
   addOne,
-  getAll,
+  getCurrent,
   getOne,
   updateOne,
 };

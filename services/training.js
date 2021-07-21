@@ -19,8 +19,8 @@ const addOne = async (userId, body) => {
   }
 };
 
-const getAll = (userId) => {
-  return Training.find({ user: userId }).populate('books').populate('user');
+const getCurrent = (userId) => {
+  return Training.findOne({ user: userId }).populate('books').populate('user');
 };
 
 const getOne = (id) => {
@@ -35,7 +35,7 @@ const updateOne = (id, body) => {
 
 module.exports = {
   addOne,
-  getAll,
+  getCurrent,
   getOne,
   updateOne,
 };
