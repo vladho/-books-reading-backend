@@ -19,8 +19,8 @@ const addOne = async (userId, body) => {
   }
 };
 
-const getAll = (filter) => {
-  return Training.find(filter).populate('books').populate('user');
+const getAll = (userId) => {
+  return Training.find({ user: userId }).populate('books').populate('user');
 };
 
 const getOne = (id) => {

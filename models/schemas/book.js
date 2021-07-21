@@ -1,4 +1,4 @@
-const { Schema } = require('mongoose');
+const { Schema, SchemaTypes } = require('mongoose');
 const { bookStatus } = require('../../helpers/constants');
 
 const bookSchema = new Schema(
@@ -46,6 +46,10 @@ const bookSchema = new Schema(
         message: "This subscription isn't allowed",
       },
       default: bookStatus.PLAN,
+    },
+    user: {
+      type: SchemaTypes.ObjectId,
+      ref: 'user',
     },
   },
   { versionKey: false, timestamps: true }

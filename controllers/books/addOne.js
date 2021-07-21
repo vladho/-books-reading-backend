@@ -15,6 +15,7 @@ const addOne = async (req, res, next) => {
     }
 
     const book = await services.addOne(userId, {
+      user: userId,
       title,
       author,
       year,

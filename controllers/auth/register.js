@@ -41,7 +41,7 @@ const register = async (req, res, next) => {
       data: {
         user: {
           id: newUser._id,
-          token: newUser.token,
+          token: token,
           name: newUser.name,
           email: newUser.email,
           books: newUser.books,
