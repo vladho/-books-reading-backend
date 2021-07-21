@@ -3,7 +3,7 @@ const router = express.Router();
 const { training: ctrl } = require('../../controllers');
 const useAuth = require('../../helpers/useAuth');
 
-router.get('/', useAuth, ctrl.getAll);
+router.get('/', useAuth, ctrl.getCurrent);
 
 router.get('/:trainingId', useAuth, ctrl.getOne);
 

@@ -1,11 +1,11 @@
 const { trainingService: services } = require('../../services');
 const { httpCode } = require('../../helpers/constants');
 
-const getAll = async (req, res, next) => {
+const getCurrent = async (req, res, next) => {
   const { query } = req;
   const { _id: userId } = req.user;
   try {
-    const result = await services.getAll(userId, query);
+    const result = await services.getCurrent(userId, query);
     // if (!result) {
     //   return res.status(httpCode.BAD_REQUEST).json({
     //     status: 'fail',
@@ -26,4 +26,4 @@ const getAll = async (req, res, next) => {
   }
 };
 
-module.exports = getAll;
+module.exports = getCurrent;
