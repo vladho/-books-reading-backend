@@ -1,7 +1,7 @@
 const { Training } = require('../models');
 const { User } = require('../models');
 
-const addTraining = async (userId, body) => {
+const addOne = async (userId, body) => {
   try {
     const training = await Training.create(body);
     await User.findByIdAndUpdate(
@@ -34,7 +34,7 @@ const updateOne = (id, body) => {
 };
 
 module.exports = {
-  addTraining,
+  addOne,
   getAll,
   getOne,
   updateOne,

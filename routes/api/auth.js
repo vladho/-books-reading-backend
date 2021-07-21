@@ -26,6 +26,7 @@ router.get(
 router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
   res.send(req.user);
   res.send('You reached the redirect URI');
+  // res.redirect('http://localhost:8080/api/training');
   // res.redirect('/register');
 });
 
