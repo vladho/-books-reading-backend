@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const { ExtractJwt, Strategy } = require('passport-jwt');
@@ -51,20 +52,24 @@ passport.use(
           googleId: profile.id,
         };
 
-        console.log('newUser:', newUser);
-
-        User.findOne({ googleId: profile.id }).then((currentUser) => {
+        User.findOne({ googleId: profile.id }).then(async (currentUser) => {
           if (currentUser) {
             done(null, currentUser);
           } else {
-            new User({
-              googleId: profile.id,
-            })
-              // вызвать метод addUser или как то сохранить в db
-              .save()
-              .then((newUser) => {
-                done(null, newUser);
-              });
+            const result = await new User({
+              ...newUser,
+            }).save();
+
+            const id = result._id;
+            const payload = { id };
+            const token = jwt.sign(payload, JWT_SECRET_KEY, {
+              expiresIn: '16h',
+            });
+
+            await services.updateToken(id, token);
+
+            result.token = token;
+            done(null, result);
           }
         });
       } catch (error) {
@@ -75,12 +80,12 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  done(null, user.id); // user.id - id из db
+  done(null, user.id);
 });
 
 passport.deserializeUser((id, done) => {
   User.findById(id).then((user) => {
-    console.log('user:', user);
+    // console.log('user:', user);
     done(null, user);
   });
 });
