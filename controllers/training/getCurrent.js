@@ -2,11 +2,15 @@ const { trainingService: services } = require('../../services');
 const { httpCode } = require('../../helpers/constants');
 
 const getCurrent = async (req, res, next) => {
-  const { query } = req;
-  const { _id: userId } = req.user;
+  // const { query } = req;
+  // const { _id: userId } = req.user;
+  const { _id: id } = req.user.training;
+
+  // console.log(trainingId);
   try {
-    const result = await services.getCurrent(userId, query);
-    // if (!result) {
+    const training = await services.getOne(id);
+
+    // if (!training) {
     //   return res.status(httpCode.BAD_REQUEST).json({
     //     status: 'fail',
     //     code: httpCode.BAD_REQUEST,
@@ -18,7 +22,12 @@ const getCurrent = async (req, res, next) => {
       status: 'success',
       code: httpCode.OK,
       data: {
-        result,
+        _id: training.id,
+        user: training.user.id,
+        books: training.books,
+        inProgress: training.inProgress,
+        startDate: training.startDate,
+        finishDate: training.finishDate,
       },
     });
   } catch (error) {

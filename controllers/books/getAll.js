@@ -6,9 +6,9 @@ const getAll = async (req, res, next) => {
   const { _id: userId } = req.user;
 
   try {
-    const result = await services.getAll(userId, query);
+    const books = await services.getAll(userId, query);
 
-    if (!result) {
+    if (!books) {
       return res.status(httpCode.BAD_REQUEST).json({
         status: 'fail',
         code: httpCode.BAD_REQUEST,
@@ -20,7 +20,16 @@ const getAll = async (req, res, next) => {
       status: 'success',
       code: httpCode.OK,
       data: {
-        result,
+        books,
+        // user: userId,
+        // _id: books._id,
+        // title: books.title,
+        // author: books.author,
+        // year: books.year,
+        // totalPages: books.totalPages,
+        // readPages: books.readPages,
+        // status: books.status,
+        // rating: books.rating,
       },
     });
   } catch (error) {

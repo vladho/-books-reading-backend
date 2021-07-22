@@ -6,7 +6,7 @@ const addOne = async (req, res, next) => {
   const { startDate, finishDate, books } = req.body;
 
   try {
-    if (!startDate || !finishDate) {
+    if (!startDate || !finishDate || !books) {
       return res.status(httpCode.BAD_REQUEST).json({
         status: 'error',
         code: httpCode.BAD_REQUEST,
@@ -14,21 +14,29 @@ const addOne = async (req, res, next) => {
       });
     }
 
-    const training = await services.addOne(userId, {
+    const newTraining = await services.addOne(userId, {
       startDate,
       finishDate,
       books,
       user: userId,
     });
 
-    const result = await services.getOne(training._id);
+    const training = await services.getOne(newTraining._id);
+    console.log(training._id);
 
     res.status(httpCode.CREATED).json({
       status: 'success',
       code: httpCode.CREATED,
       message: 'Training added',
       data: {
-        result,
+        // training,
+        _id: training.id,
+        user: training.user.id,
+        books: training.books,
+        inProgress: training.inProgress,
+        startDate: training.startDate,
+        finishDate: training.finishDate,
+        // duration: training.duration,
       },
     });
   } catch (error) {

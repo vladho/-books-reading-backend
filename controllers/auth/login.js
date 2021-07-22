@@ -40,6 +40,7 @@ const login = async (req, res, next) => {
       code: httpCode.OK,
       data: {
         user: {
+          _id: user._id,
           name: user.name,
           email: user.email,
           books: user.books,

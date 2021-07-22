@@ -7,6 +7,7 @@ const { JWT_SECRET_KEY } = process.env;
 
 const register = async (req, res, next) => {
   const { name, email, password } = req.body;
+
   try {
     const user = await services.getUserByEmail(email);
 
@@ -26,7 +27,11 @@ const register = async (req, res, next) => {
       });
     }
 
-    const newUser = await services.addUser({ name, email, password });
+    const newUser = await services.addUser({
+      name,
+      email,
+      password,
+    });
 
     const id = newUser._id;
     const payload = { id };
@@ -37,15 +42,14 @@ const register = async (req, res, next) => {
     res.status(httpCode.CREATED).json({
       status: 'success',
       code: httpCode.CREATED,
-      message: 'Successfully added',
       data: {
         user: {
-          id: newUser._id,
-          token: token,
+          _id: newUser._id,
           name: newUser.name,
           email: newUser.email,
           books: newUser.books,
           training: newUser.training,
+          token,
         },
       },
     });

@@ -19,23 +19,43 @@ const addOne = async (userId, body) => {
   }
 };
 
-const getCurrent = (userId) => {
-  return Training.findOne({ user: userId }).populate('books').populate('user');
-};
+// const getOne = (id) => {
+//   return Training.findById(id).populate('books').populate('user');
+// };
 
 const getOne = (id) => {
-  return Training.findById(id).populate('books').populate('user');
+  return Training.findById(id)
+    .populate({
+      path: 'books',
+      select: '-createdAt -updatedAt',
+    })
+    .populate({
+      path: 'user',
+      select: '-createdAt -updatedAt -password',
+    });
 };
 
-const updateOne = (id, body) => {
-  return Training.findByIdAndUpdate(id, body, { new: true })
-    .populate('books')
-    .populate('user');
-};
+// const getCurrent = (userId, trainingId) => {
+//   return Training.findOne({ user: userId, _id: trainingId })
+//     .populate({
+//       path: 'books',
+//       select: '-createdAt -updatedAt',
+//     })
+//     .populate({
+//       path: 'user',
+//       select: '-createdAt -updatedAt -password',
+//     });
+// };
+
+// const updateOne = (id, body) => {
+//   return Training.findByIdAndUpdate(id, body, { new: true })
+//     .populate('books')
+//     .populate('user');
+// };
 
 module.exports = {
   addOne,
-  getCurrent,
   getOne,
-  updateOne,
+  // getCurrent,
+  // updateOne,
 };

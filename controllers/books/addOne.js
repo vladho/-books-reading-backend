@@ -25,9 +25,14 @@ const addOne = async (req, res, next) => {
     res.status(httpCode.CREATED).json({
       status: 'success',
       code: httpCode.CREATED,
-      message: 'Book added',
       data: {
-        book,
+        user: userId,
+        _id: book._id,
+        title: book.title,
+        author: book.author,
+        year: book.year,
+        totalPages: book.totalPages,
+        status: book.status,
       },
     });
   } catch (error) {
