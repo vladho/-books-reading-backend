@@ -12,7 +12,7 @@ const getCurrent = async (req, res, next) => {
       code: httpCode.OK,
       data: {
         user: {
-          id: user._id,
+          _id: user._id,
           name: user.name,
           email: user.email,
           books: user.books,

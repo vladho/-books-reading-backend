@@ -21,8 +21,12 @@ const addOne = async (req, res, next) => {
       user: userId,
     });
 
+    // console.log('books after new', books);
+    // console.log(newTraining._id);
+
     const training = await services.getOne(newTraining._id);
-    console.log(training._id);
+
+    // console.log(training.books);
 
     res.status(httpCode.CREATED).json({
       status: 'success',
@@ -39,8 +43,15 @@ const addOne = async (req, res, next) => {
         // duration: training.duration,
       },
     });
+    // } catch (error) {
+    //   throw new Error(error.message);
+    // }
   } catch (error) {
-    throw new Error(error.message);
+    return res.status(httpCode.BAD_REQUEST).json({
+      status: 'error',
+      code: httpCode.BAD_REQUEST,
+      message: 'Invalid bookId',
+    });
   }
 };
 

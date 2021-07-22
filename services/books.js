@@ -1,13 +1,14 @@
 const { Book } = require('../models');
 const { User } = require('../models');
+const { Training } = require('../models');
 
 const getAll = (userId) => {
   return Book.find({ user: userId });
 };
 
-// const getOne = (id) => {
-//   return Book.findById(id);
-// };
+const getOne = (bookId) => {
+  return Book.findById(bookId);
+};
 
 const addOne = async (userId, body) => {
   try {
@@ -29,35 +30,43 @@ const addOne = async (userId, body) => {
   }
 };
 
-// const deleteOne = async (userId, id) => {
-//   try {
-//     await User.findByIdAndUpdate(
-//       userId,
-//       {
-//         $pull: {
-//           books: id,
-//         },
-//       },
-//       {
-//         new: true,
-//       }
-//     );
-//     return Book.findByIdAndDelete(id);
-//   } catch (error) {
-//     throw new Error(error.message);
-//   }
+const deleteOne = async (userId, bookId, trainingId) => {
+  try {
+    await User.findByIdAndUpdate(
+      userId,
+      {
+        $pull: {
+          books: bookId,
+        },
+      },
+      {
+        new: true,
+      }
+    );
 
-//   // try {
-//   // } catch (error) {
-//   //   throw error;
-//   // }
-// };
+    await Training.findByIdAndUpdate(
+      trainingId,
+      {
+        $pull: {
+          books: bookId,
+        },
+      },
+      {
+        new: true,
+      }
+    );
 
-const updateOne = async (id, rating, resume) => {
+    return Book.findByIdAndDelete(bookId);
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+const updateOne = async (bookId, rating, resume) => {
   try {
     const book = await Book.findByIdAndUpdate(
       // { user: userId, _id: id },
-      id,
+      bookId,
       // {
       //   $set: {
       //     rating,
@@ -66,7 +75,11 @@ const updateOne = async (id, rating, resume) => {
       // },
       { rating, resume },
       { new: true }
-    ).populate('user');
+    ).populate({
+      path: 'user',
+      select: '-createdAt -updatedAt -password',
+    });
+
     return book;
   } catch (error) {
     throw new Error(error.message);
@@ -75,8 +88,8 @@ const updateOne = async (id, rating, resume) => {
 
 module.exports = {
   getAll,
-  // getOne,
+  getOne,
   addOne,
-  // deleteOne,
+  deleteOne,
   updateOne,
 };

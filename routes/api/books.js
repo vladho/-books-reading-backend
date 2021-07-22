@@ -10,4 +10,6 @@ router.post('/', useAuth, ctrl.addOne);
 
 router.patch('/:bookId', useAuth, validateUpdateResume, ctrl.updateOne);
 
+router.delete('/:bookId', useAuth, ctrl.deleteOne);
+
 module.exports = router;
