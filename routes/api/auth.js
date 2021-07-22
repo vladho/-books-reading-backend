@@ -14,8 +14,6 @@ router.post('/logout', useAuth, ctrl.logout);
 
 router.get('/current', useAuth, ctrl.getCurrent);
 
-router.put('/:userId', useAuth, ctrl.updateUser);
-
 router.get(
   '/google',
   passport.authenticate('google', {
@@ -25,8 +23,8 @@ router.get(
 
 router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
   res.send(req.user);
-  res.send('You reached the redirect URI');
-  // res.redirect('http://localhost:8080/api/training');
+  // res.send('You reached the redirect URI');
+  res.redirect('http://localhost:8080/api/training');
   // res.redirect('/register');
 });
 

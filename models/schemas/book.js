@@ -5,7 +5,7 @@ const bookSchema = new Schema(
   {
     title: {
       type: String,
-      minLength: 2,
+      minLength: 1,
       maxLength: 30,
       required: [true, 'Set title for book'],
     },

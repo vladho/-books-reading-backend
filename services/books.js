@@ -5,9 +5,9 @@ const getAll = (userId) => {
   return Book.find({ user: userId });
 };
 
-const getOne = (id) => {
-  return Book.findById(id);
-};
+// const getOne = (id) => {
+//   return Book.findById(id);
+// };
 
 const addOne = async (userId, body) => {
   try {
@@ -29,34 +29,35 @@ const addOne = async (userId, body) => {
   }
 };
 
-const deleteOne = async (userId, id) => {
-  try {
-    await User.findByIdAndUpdate(
-      userId,
-      {
-        $pull: {
-          books: id,
-        },
-      },
-      {
-        new: true,
-      }
-    );
-    return Book.findByIdAndDelete(id);
-  } catch (error) {
-    throw new Error(error.message);
-  }
+// const deleteOne = async (userId, id) => {
+//   try {
+//     await User.findByIdAndUpdate(
+//       userId,
+//       {
+//         $pull: {
+//           books: id,
+//         },
+//       },
+//       {
+//         new: true,
+//       }
+//     );
+//     return Book.findByIdAndDelete(id);
+//   } catch (error) {
+//     throw new Error(error.message);
+//   }
 
-  // try {
-  // } catch (error) {
-  //   throw error;
-  // }
-};
+//   // try {
+//   // } catch (error) {
+//   //   throw error;
+//   // }
+// };
 
-const updateOne = async (userId, id, rating, resume) => {
+const updateOne = async (id, rating, resume) => {
   try {
     const book = await Book.findByIdAndUpdate(
-      { _id: id, user: userId },
+      // { user: userId, _id: id },
+      id,
       // {
       //   $set: {
       //     rating,
@@ -74,8 +75,8 @@ const updateOne = async (userId, id, rating, resume) => {
 
 module.exports = {
   getAll,
-  getOne,
+  // getOne,
   addOne,
-  deleteOne,
+  // deleteOne,
   updateOne,
 };

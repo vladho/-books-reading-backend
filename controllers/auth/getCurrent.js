@@ -11,15 +11,18 @@ const getCurrent = async (req, res, next) => {
       status: 'success',
       code: httpCode.OK,
       data: {
-        user: user,
+        user: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          books: user.books,
+          training: user.training,
+          token: user.token,
+        },
       },
     });
   } catch (error) {
-    res.status(401).json({
-      status: 'error',
-      code: 401,
-      message: 'Not authorized',
-    });
+    throw new Error(error.message);
   }
 };
 
