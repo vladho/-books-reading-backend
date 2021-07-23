@@ -18,14 +18,14 @@ const trainingSchema = new Schema(
       type: Boolean,
       default: true,
     },
-    stats: {
-      time: {
-        type: String,
-      },
-      pages: {
-        type: Number,
-      },
-    },
+    // stats: {
+    //   time: {
+    //     type: String,
+    //   },
+    //   pages: {
+    //     type: Number,
+    //   },
+    // },
     books: [
       {
         type: SchemaTypes.ObjectId,
@@ -42,11 +42,23 @@ const trainingSchema = new Schema(
           type: String,
         },
         plannedPages: {
-          type: String,
+          type: Number,
         },
         factPages: {
-          type: String,
+          type: Number,
         },
+        stats: [
+          {
+            time: {
+              type: String,
+            },
+          },
+          {
+            pages: {
+              type: Number,
+            },
+          },
+        ],
       },
     ],
   },
