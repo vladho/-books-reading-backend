@@ -7,4 +7,6 @@ router.get('/', useAuth, ctrl.getCurrent);
 
 router.post('/', useAuth, ctrl.addOne);
 
+router.patch('/:trainingId', useAuth, ctrl.updateOne);
+
 module.exports = router;

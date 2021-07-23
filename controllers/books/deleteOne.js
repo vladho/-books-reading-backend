@@ -4,7 +4,7 @@ const { bookService: services } = require('../../services');
 const deleteOne = async (req, res, next) => {
   const { _id: userId } = req.user;
   const { bookId } = req.params;
-  const { _id: trainingId } = req.user.training;
+  // const { _id: trainingId } = req.user.training;
 
   try {
     const book = await services.getOne(bookId);
@@ -17,7 +17,7 @@ const deleteOne = async (req, res, next) => {
       });
     }
 
-    await services.deleteOne(userId, bookId, trainingId);
+    await services.deleteOne(userId, bookId); //trainingId);
 
     res.status(httpCode.OK).json({
       status: 'success',

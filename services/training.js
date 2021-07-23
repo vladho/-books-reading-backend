@@ -47,15 +47,15 @@ const getOne = (id) => {
 //     });
 // };
 
-// const updateOne = (id, body) => {
-//   return Training.findByIdAndUpdate(id, body, { new: true })
-//     .populate('books')
-//     .populate('user');
-// };
+const updateOne = (id, body) => {
+  return Training.findByIdAndUpdate(id, body, { new: true })
+    .populate('books')
+    .populate('user');
+};
 
 module.exports = {
   addOne,
   getOne,
   // getCurrent,
-  // updateOne,
+  updateOne,
 };

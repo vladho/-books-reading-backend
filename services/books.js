@@ -30,7 +30,8 @@ const addOne = async (userId, body) => {
   }
 };
 
-const deleteOne = async (userId, bookId, trainingId) => {
+const deleteOne = async (userId, bookId) => {
+  //trainingId ) => {
   try {
     await User.findByIdAndUpdate(
       userId,
@@ -44,17 +45,17 @@ const deleteOne = async (userId, bookId, trainingId) => {
       }
     );
 
-    await Training.findByIdAndUpdate(
-      trainingId,
-      {
-        $pull: {
-          books: bookId,
-        },
-      },
-      {
-        new: true,
-      }
-    );
+    // await Training.findByIdAndUpdate(
+    //   trainingId,
+    //   {
+    //     $pull: {
+    //       books: bookId,
+    //     },
+    //   },
+    //   {
+    //     new: true,
+    //   }
+    // );
 
     return Book.findByIdAndDelete(bookId);
   } catch (error) {
