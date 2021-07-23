@@ -47,6 +47,7 @@ const addOne = async (req, res, next) => {
     //   throw new Error(error.message);
     // }
   } catch (error) {
+    // throw error;
     return res.status(httpCode.BAD_REQUEST).json({
       status: 'error',
       code: httpCode.BAD_REQUEST,

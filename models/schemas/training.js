@@ -12,20 +12,12 @@ const trainingSchema = new Schema(
     },
     duration: {
       type: Number,
+      default: 0,
     },
-    // Уточнить о необходимости использования
     inProgress: {
       type: Boolean,
       default: true,
     },
-    // stats: {
-    //   time: {
-    //     type: String,
-    //   },
-    //   pages: {
-    //     type: Number,
-    //   },
-    // },
     books: [
       {
         type: SchemaTypes.ObjectId,
@@ -36,31 +28,32 @@ const trainingSchema = new Schema(
       type: SchemaTypes.ObjectId,
       ref: 'user',
     },
-    result: [
-      {
-        date: {
-          type: String,
-        },
-        plannedPages: {
-          type: Number,
-        },
-        factPages: {
-          type: Number,
-        },
-        stats: [
-          {
-            time: {
-              type: String,
-            },
+    result: {
+      type: [
+        {
+          date: {
+            type: String,
           },
-          {
-            pages: {
-              type: Number,
-            },
+          plannedPages: {
+            type: Number,
           },
-        ],
-      },
-    ],
+          factPages: {
+            type: Number,
+          },
+          stats: [
+            {
+              time: {
+                type: String,
+              },
+              pages: {
+                type: Number,
+              },
+            },
+          ],
+        },
+      ],
+      default: [],
+    },
   },
   { versionKey: false, timestamps: true }
 );
