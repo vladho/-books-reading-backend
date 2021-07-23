@@ -40,7 +40,7 @@ const addOne = async (req, res, next) => {
         inProgress: training.inProgress,
         startDate: training.startDate,
         finishDate: training.finishDate,
-        // duration: training.duration,
+        result: training.result,
       },
     });
     // } catch (error) {

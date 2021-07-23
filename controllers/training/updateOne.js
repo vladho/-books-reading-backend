@@ -5,10 +5,10 @@ const updateOne = async (req, res, next) => {
   // const userId = req.user.id;
   // const user = req.user;
   const { trainingId: id } = req.params;
-  //   const { rating, resume } = req.body;
+  const { body } = req;
 
   try {
-    const training = await services.updateOne(id, req.body);
+    const training = await services.updateOne(id, body);
 
     // if (book.readPages !== book.totalPages && book.status !== 'done') {
     //   return res.status(httpCode.FORBIDDEN).json({

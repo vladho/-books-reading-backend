@@ -10,10 +10,10 @@ const trainingSchema = new Schema(
       type: String,
       required: [true, 'Set end date for training'],
     },
-    duration: {
-      type: Number,
-      default: 0,
-    },
+    // duration: {
+    //   type: Number,
+    //   default: 0,
+    // },
     inProgress: {
       type: Boolean,
       default: true,
@@ -36,9 +36,11 @@ const trainingSchema = new Schema(
           },
           plannedPages: {
             type: Number,
+            default: 0,
           },
           factPages: {
             type: Number,
+            default: 0,
           },
           stats: [
             {
@@ -47,6 +49,7 @@ const trainingSchema = new Schema(
               },
               pages: {
                 type: Number,
+                default: 0,
               },
             },
           ],
