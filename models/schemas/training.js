@@ -36,6 +36,19 @@ const trainingSchema = new Schema(
       type: SchemaTypes.ObjectId,
       ref: 'user',
     },
+    result: [
+      {
+        date: {
+          type: String,
+        },
+        plannedPages: {
+          type: String,
+        },
+        factPages: {
+          type: String,
+        },
+      },
+    ],
   },
   { versionKey: false, timestamps: true }
 );
