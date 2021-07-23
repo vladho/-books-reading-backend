@@ -7,6 +7,7 @@ const getCurrent = async (req, res, next) => {
   const { _id: id } = req.user.training;
 
   // console.log(trainingId);
+
   try {
     const training = await services.getOne(id);
 
