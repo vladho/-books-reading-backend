@@ -67,16 +67,18 @@ const updateOne = async (id, body) => {
   const { result, books, finishDate } = await Training.findById(id).populate(
     'books'
   );
+  // console.log(pages);
+  // console.log(result.map((i) => i.stats));
 
   const newResult = result.find((item) => item.date === date);
   if (newResult) {
+    // newResult.plannedPages += plannedPages;
     newResult.factPages += pages;
     newResult.stats.push({ time, pages });
   } else {
     const totalPages = books.reduce((acc, value) => {
       return acc.totalPages + value.totalPages;
     });
-    // console.log(totalPages);
 
     const factPages = result.reduce((acc, value) => {
       const dayFactPages = value.stats.reduce((acc, value) => {
@@ -95,9 +97,9 @@ const updateOne = async (id, body) => {
     // console.log(lastDays);
 
     const plannedPages = Math.ceil((totalPages - factPages) / lastDays);
-    console.log(plannedPages);
+    // console.log(plannedPages);
 
-    result.push({ date, plannedPages, stats: [{ time, pages }] });
+    result.push({ date, plannedPages, factPages, stats: [{ time, pages }] });
   }
   // console.log(result);
   return await Training.findByIdAndUpdate(id, {
