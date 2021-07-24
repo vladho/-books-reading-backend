@@ -6,7 +6,7 @@ const updateOne = async (req, res, next) => {
   // const user = req.user;
   const { trainingId: id } = req.params;
   const { body } = req;
-  console.log(body.pages);
+  //   console.log(body.pages);
   try {
     const training = await services.updateOne(id, body);
 
@@ -37,7 +37,7 @@ const updateOne = async (req, res, next) => {
     //     message: 'Missing field',
     //   });
     // }
-    console.log(training);
+    // console.log(training);
     res.status(httpCode.OK).json({
       status: 'success',
       code: httpCode.OK,
