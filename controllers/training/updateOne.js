@@ -3,10 +3,10 @@ const { httpCode } = require('../../helpers/constants');
 
 const updateOne = async (req, res, next) => {
   // const userId = req.user.id;
-  // const user = req.user;
-  const { trainingId: id } = req.params;
+  const user = req.user;
+  const { _id: id } = user.training;
   const { body } = req;
-  //   console.log(body.pages);
+  //   console.log();
   try {
     const training = await services.updateOne(id, body);
 
