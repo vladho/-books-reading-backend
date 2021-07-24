@@ -29,7 +29,7 @@ const getCurrent = async (req, res, next) => {
         inProgress: training.inProgress,
         startDate: training.startDate,
         finishDate: training.finishDate,
-        results: training.results,
+        result: training.result,
       },
     });
   } catch (error) {
