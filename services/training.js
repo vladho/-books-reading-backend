@@ -62,17 +62,56 @@ const getOne = (id) => {
 //     });
 // };
 
+// const updateOne = async (id, body) => {
+//   const { date, time, pages } = body;
+//   const { result, books, finishDate } = await Training.findById(id).populate(
+//     'books'
+//   );
+
+//   const newResult = result.find((item) => item.date === date);
+//   if (newResult) {
+//     newResult.factPages += pages;
+//     newResult.stats.push({ time, pages });
+//   } else {
+//     const totalPages = books.reduce((acc, value) => {
+//       return acc.totalPages + value.totalPages;
+//     });
+
+//     const factPages = result.reduce((acc, value) => {
+//       const dayFactPages = value.stats.reduce((acc, value) => {
+//         acc + value.pages;
+//       });
+//       return acc + dayFactPages.pages;
+//     }, 0);
+//     // console.log(factPages);
+
+//     const now = moment();
+//     // console.log(now);
+//     const formatEndDate = moment(finishDate, 'DD-MM-YYYYTHH:mm:ssZ');
+//     // console.log(formatEndDate);
+
+//     const lastDays = formatEndDate.diff(now, 'days');
+//     // console.log(lastDays);
+
+//     const plannedPages = Math.ceil((totalPages - factPages) / lastDays);
+//     // console.log(plannedPages);
+
+//     result.push({ date, plannedPages, stats: [{ time, pages }] });
+//   }
+//   // console.log(result);
+//   return await Training.findByIdAndUpdate(id, {
+//     result,
+//   }).populate('books');
+// };
+
 const updateOne = async (id, body) => {
   const { date, time, pages } = body;
   const { result, books, finishDate } = await Training.findById(id).populate(
     'books'
   );
-  // console.log(pages);
-  // console.log(result.map((i) => i.stats));
 
   const newResult = result.find((item) => item.date === date);
   if (newResult) {
-    // newResult.plannedPages += plannedPages;
     newResult.factPages += pages;
     newResult.stats.push({ time, pages });
   } else {
@@ -81,31 +120,25 @@ const updateOne = async (id, body) => {
     });
 
     const factPages = result.reduce((acc, value) => {
-      const dayFactPages = value.stats.reduce((acc, value) => {
-        acc + value.pages;
-      });
+      const dayFactPages = value.stats.reduce(
+        (acc, value) => acc + value.pages
+      );
       return acc + dayFactPages.pages;
     }, 0);
-    // console.log(factPages);
 
     const now = moment();
-    // console.log(now);
-    const formatEndDate = moment(finishDate, 'DD-MM-YYYYTHH:mm:ssZ');
-    // console.log(formatEndDate);
-
+    const formatEndDate = moment(finishDate, 'YYYY-MM-DD');
     const lastDays = formatEndDate.diff(now, 'days');
-    // console.log(lastDays);
-
     const plannedPages = Math.ceil((totalPages - factPages) / lastDays);
-    // console.log(plannedPages);
 
-    result.push({ date, plannedPages, factPages, stats: [{ time, pages }] });
+    result.push({ date, plannedPages, stats: [{ time, pages }] });
   }
-  // console.log(result);
   return await Training.findByIdAndUpdate(id, {
     result,
-  }).populate('books');
+  });
 };
+
+///////////////////backup/////////////////
 
 // const updateOne = async (id, body) => {
 //   const { date, time, pages } = body;
@@ -141,6 +174,10 @@ const updateOne = async (id, body) => {
 //   // .populate('books')
 //   // .populate('user');
 // };
+
+///// 'DD-MM-YYYYTHH:mm:ssZ'
+
+///////////////////backup/////////////////
 
 module.exports = {
   addOne,
