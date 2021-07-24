@@ -109,6 +109,7 @@ const updateOne = async (id, body) => {
   const { result, books, finishDate } = await Training.findById(id).populate(
     'books'
   );
+
   const newResult = result.find((item) => item.date === date);
   if (newResult) {
     newResult.factPages += pages;
@@ -126,7 +127,7 @@ const updateOne = async (id, body) => {
     }, 0);
 
     const now = moment();
-    const formatEndDate = moment(finishDate).format('YYYY-MM-DD');
+    const formatEndDate = moment(finishDate, 'YYYY-MM-DD');
     const lastDays = formatEndDate.diff(now, 'days');
     const plannedPages = Math.ceil((totalPages - factPages) / lastDays);
 
