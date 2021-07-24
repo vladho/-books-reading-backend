@@ -40,13 +40,14 @@ const addOne = async (req, res, next) => {
         inProgress: training.inProgress,
         startDate: training.startDate,
         finishDate: training.finishDate,
-        // duration: training.duration,
+        result: training.result,
       },
     });
     // } catch (error) {
     //   throw new Error(error.message);
     // }
   } catch (error) {
+    // throw error;
     return res.status(httpCode.BAD_REQUEST).json({
       status: 'error',
       code: httpCode.BAD_REQUEST,

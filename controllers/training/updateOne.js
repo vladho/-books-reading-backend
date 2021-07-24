@@ -5,10 +5,10 @@ const updateOne = async (req, res, next) => {
   // const userId = req.user.id;
   // const user = req.user;
   const { trainingId: id } = req.params;
-  //   const { rating, resume } = req.body;
-
+  const { body } = req;
+  //   console.log(body.pages);
   try {
-    const training = await services.updateOne(id, req.body);
+    const training = await services.updateOne(id, body);
 
     // if (book.readPages !== book.totalPages && book.status !== 'done') {
     //   return res.status(httpCode.FORBIDDEN).json({
@@ -37,7 +37,7 @@ const updateOne = async (req, res, next) => {
     //     message: 'Missing field',
     //   });
     // }
-
+    // console.log(training);
     res.status(httpCode.OK).json({
       status: 'success',
       code: httpCode.OK,

@@ -10,22 +10,14 @@ const trainingSchema = new Schema(
       type: String,
       required: [true, 'Set end date for training'],
     },
-    duration: {
-      type: Number,
-    },
-    // Уточнить о необходимости использования
+    // duration: {
+    //   type: Number,
+    //   default: 0,
+    // },
     inProgress: {
       type: Boolean,
       default: true,
     },
-    // stats: {
-    //   time: {
-    //     type: String,
-    //   },
-    //   pages: {
-    //     type: Number,
-    //   },
-    // },
     books: [
       {
         type: SchemaTypes.ObjectId,
@@ -36,31 +28,35 @@ const trainingSchema = new Schema(
       type: SchemaTypes.ObjectId,
       ref: 'user',
     },
-    result: [
-      {
-        date: {
-          type: String,
-        },
-        plannedPages: {
-          type: Number,
-        },
-        factPages: {
-          type: Number,
-        },
-        stats: [
-          {
-            time: {
-              type: String,
-            },
+    result: {
+      type: [
+        {
+          date: {
+            type: String,
           },
-          {
-            pages: {
-              type: Number,
-            },
+          plannedPages: {
+            type: Number,
+            default: 0,
           },
-        ],
-      },
-    ],
+          factPages: {
+            type: Number,
+            default: 0,
+          },
+          stats: [
+            {
+              time: {
+                type: String,
+              },
+              pages: {
+                type: Number,
+                default: 0,
+              },
+            },
+          ],
+        },
+      ],
+      default: [],
+    },
   },
   { versionKey: false, timestamps: true }
 );
