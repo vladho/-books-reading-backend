@@ -68,6 +68,37 @@ const updateOne = async (id, body) => {
     'books'
   );
 
+  const unreadBooks = books.filter((item) => item.status === 'read');
+
+  let readPages = pages;
+
+  const booksToUpdate = [];
+
+  for (const item of unreadBooks) {
+    const diff = item.totalPages - item.readPages;
+    if (diff > readPages) {
+      item.readPages += readPages;
+      readPages = 0;
+      booksToUpdate.push(item);
+      break;
+    }
+    item.readPages = item.totalPages;
+    item.status = 'done';
+    booksToUpdate.push(item);
+    readPages -= diff;
+  }
+  console.log(booksToUpdate);
+  const booksUpdateQueries = booksToUpdate.map((item) => {
+    const query = Book.findByIdAndUpdate(item._id, {
+      readPages: item.readPages,
+      status: item.status,
+    });
+    const promise = query.exec();
+    return promise;
+  });
+  await Promise.all(booksUpdateQueries);
+  // console.log(result);
+
   const totalPages = books.reduce((acc, value) => {
     // console.log(value.totalPages);
 
@@ -91,7 +122,7 @@ const updateOne = async (id, body) => {
   const now = moment();
   // console.log(now);
 
-  const formatEndDate = moment(finishDate, 'DD-MM-YYYY');
+  const formatEndDate = moment(finishDate, 'YYYY-MM-DD');
   // console.log(formatEndDate);
 
   const lastDays = formatEndDate.diff(now, 'days');
@@ -101,7 +132,7 @@ const updateOne = async (id, body) => {
   if (plannedPages < 0) {
     plannedPages = 0;
   }
-  console.log(plannedPages);
+  // console.log(plannedPages);
 
   const newResult = result.find((item) => item.date === date);
   // console.log(newResult?.plannedPages);

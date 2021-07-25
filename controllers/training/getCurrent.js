@@ -50,7 +50,7 @@ const getCurrent = async (req, res, next) => {
       },
     });
   } catch (error) {
-    throw new Error(error.message);
+    next(error);
   }
 };
 
