@@ -76,10 +76,11 @@ const updateOne = async (bookId, rating, resume) => {
       // },
       { rating, resume },
       { new: true }
-    ).populate({
-      path: 'user',
-      select: '-createdAt -updatedAt -password',
-    });
+    );
+    //   .populate({
+    //   path: 'user',
+    //   select: '-createdAt -updatedAt -password',
+    // });
 
     return book;
   } catch (error) {
