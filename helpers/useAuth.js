@@ -21,7 +21,7 @@ const useAuth = (req, res, next) => {
       return res.status(httpCode.BAD_REQUEST).json({
         status: 'error',
         code: httpCode.BAD_REQUEST,
-        message: 'Missing Bearer token in Authorization',
+        message: 'Invalid request body / Token not provided',
       });
     }
   })(req, res, next);

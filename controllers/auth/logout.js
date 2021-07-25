@@ -10,7 +10,7 @@ const logout = async (req, res, next) => {
     res.status(httpCode.OK).json({
       status: 'success',
       code: httpCode.NO_CONTENT,
-      message: 'Success logout',
+      message: 'Successful operation',
     });
   } catch (error) {
     throw new Error(error.message);

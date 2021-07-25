@@ -4,9 +4,26 @@ const { httpCode } = require('../../helpers/constants');
 const getCurrent = async (req, res, next) => {
   // const { query } = req;
   // const { _id: userId } = req.user;
-  const { _id: id } = req.user.training;
 
   // console.log(trainingId);
+  // if (!req.user.training) {
+  //   return res.status(httpCode.BAD_REQUEST).json({
+  //     status: 'fail',
+  //     code: httpCode.BAD_REQUEST,
+  //     message: 'Training not found',
+  //   });
+  // }
+
+  if (!req.user.training) {
+    return res.status(httpCode.OK).json({
+      status: 'success',
+      code: httpCode.OK,
+      message: 'Successful operation',
+      data: null,
+    });
+  }
+
+  const { _id: id } = req.user.training;
 
   try {
     const training = await services.getOne(id);
