@@ -43,7 +43,13 @@ const updateOne = async (req, res, next) => {
       code: httpCode.OK,
       // message: 'Resume added',
       data: {
-        training,
+        _id: training.id,
+        user: training.user,
+        books: training.books,
+        inProgress: training.inProgress,
+        startDate: training.startDate,
+        finishDate: training.finishDate,
+        result: training.result,
       },
     });
   } catch (error) {
