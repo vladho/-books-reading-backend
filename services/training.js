@@ -111,33 +111,60 @@ const updateOne = async (id, body) => {
   );
 
   const totalPages = books.reduce((acc, value) => {
-    return acc.totalPages + value.totalPages;
-  });
+    // console.log(value.totalPages);
 
-  const factPages = result.reduce((acc, value) => {
-    const dayFactPages = value.stats.reduce((acc, value) => acc + value.pages);
-    return acc + dayFactPages.pages;
+    return acc + value.totalPages;
   }, 0);
 
+  const factPages = result.reduce((acc, value) => {
+    // console.log(acc);
+    // console.log(value);
+    const dayFactPages = value.stats.reduce((acc, value) => {
+      // console.log(acc);
+      // console.log(value.pages);
+      return acc + value.pages;
+    }, 0);
+    return acc + dayFactPages;
+  }, 0);
+
+  // console.log(totalPages);
+  // console.log(factPages);
+
   const now = moment();
-  const formatEndDate = moment(finishDate, 'YYYY-MM-DD');
+  // console.log(now);
+
+  const formatEndDate = moment(finishDate, 'DD-MM-YYYY');
+  // console.log(formatEndDate);
+
   const lastDays = formatEndDate.diff(now, 'days');
+  // console.log(lastDays);
+
   const plannedPages = Math.ceil((totalPages - factPages) / lastDays);
+  console.log(plannedPages);
 
   const newResult = result.find((item) => item.date === date);
+  // console.log(newResult?.plannedPages);
+
   if (newResult) {
+    newResult.plannedPages = plannedPages;
     newResult.factPages += pages;
     newResult.stats.push({ time, pages });
   } else {
-    result.push({ date, plannedPages, factPages, stats: [{ time, pages }] });
+    result.push({
+      date,
+      plannedPages,
+      factPages: pages,
+      stats: [{ time, pages }],
+    });
   }
+
   return await Training.findByIdAndUpdate(
     id,
     {
       result,
     },
     { new: true }
-  );
+  ).populate('books');
 };
 
 ///////////////////backup/////////////////
