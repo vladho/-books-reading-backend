@@ -13,7 +13,7 @@ const logout = async (req, res, next) => {
       message: 'Success logout',
     });
   } catch (error) {
-    throw new Error(error.message);
+    next(error);
   }
 };
 

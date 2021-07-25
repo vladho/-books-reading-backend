@@ -62,7 +62,7 @@ const getOne = (id) => {
 //     });
 // };
 
-const updateOne = async (id, body) => {
+const updateOne = async (userId, id, body) => {
   const { date, time, pages } = body;
   const { result, books, finishDate } = await Training.findById(id).populate(
     'books'
@@ -87,7 +87,7 @@ const updateOne = async (id, body) => {
     booksToUpdate.push(item);
     readPages -= diff;
   }
-  console.log(booksToUpdate);
+
   const booksUpdateQueries = booksToUpdate.map((item) => {
     const query = Book.findByIdAndUpdate(item._id, {
       readPages: item.readPages,
@@ -97,45 +97,37 @@ const updateOne = async (id, body) => {
     return promise;
   });
   await Promise.all(booksUpdateQueries);
-  // console.log(result);
 
   const totalPages = books.reduce((acc, value) => {
-    // console.log(value.totalPages);
-
     return acc + value.totalPages;
   }, 0);
 
   const factPages = result.reduce((acc, value) => {
-    // console.log(acc);
-    // console.log(value);
     const dayFactPages = value.stats.reduce((acc, value) => {
-      // console.log(acc);
-      // console.log(value.pages);
       return acc + value.pages;
     }, 0);
     return acc + dayFactPages;
   }, 0);
 
-  // console.log(totalPages);
-  // console.log(factPages);
-
   const now = moment();
-  // console.log(now);
 
   const formatEndDate = moment(finishDate, 'YYYY-MM-DD');
-  // console.log(formatEndDate);
 
   const lastDays = formatEndDate.diff(now, 'days');
-  // console.log(lastDays);
 
   let plannedPages = (totalPages - factPages) / lastDays;
   if (plannedPages < 0) {
     plannedPages = 0;
   }
-  // console.log(plannedPages);
+
+  const endTraining = books.some((item) => item.status === 'read');
+  if (!endTraining) {
+    await User.findByIdAndUpdate(userId, {
+      training: null,
+    });
+  }
 
   const newResult = result.find((item) => item.date === date);
-  // console.log(newResult?.plannedPages);
 
   if (newResult) {
     newResult.plannedPages = plannedPages;
@@ -153,6 +145,7 @@ const updateOne = async (id, body) => {
   return await Training.findByIdAndUpdate(
     id,
     {
+      inProgress: endTraining,
       result,
     },
     { new: true }

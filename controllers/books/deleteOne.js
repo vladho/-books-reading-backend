@@ -25,7 +25,7 @@ const deleteOne = async (req, res, next) => {
       message: 'Book deleted',
     });
   } catch (error) {
-    throw new Error(error.message);
+    next(error);
   }
 };
 
