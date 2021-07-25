@@ -1,6 +1,6 @@
 const { Book } = require('../models');
 const { User } = require('../models');
-const { Training } = require('../models');
+// const { Training } = require('../models');
 
 const getAll = (userId) => {
   return Book.find({ user: userId });
@@ -31,7 +31,7 @@ const addOne = async (userId, body) => {
 };
 
 const deleteOne = async (userId, bookId) => {
-  //trainingId ) => {
+  // trainingId ) => {
   try {
     await User.findByIdAndUpdate(
       userId,

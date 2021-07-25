@@ -48,6 +48,7 @@ const updateOne = async (req, res, next) => {
     res.status(httpCode.OK).json({
       status: 'success',
       code: httpCode.OK,
+      message: 'Successful operation',
       // message: 'Resume added',
       data: {
         book,
