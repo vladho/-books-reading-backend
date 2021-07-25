@@ -2,7 +2,7 @@ const { Training } = require('../models');
 const { User } = require('../models');
 const { Book } = require('../models');
 const moment = require('moment');
-// console.log(moment());
+
 const addOne = async (userId, body) => {
   try {
     const training = await Training.create(body);
@@ -97,8 +97,11 @@ const updateOne = async (id, body) => {
   const lastDays = formatEndDate.diff(now, 'days');
   // console.log(lastDays);
 
-  const plannedPages = Math.ceil((totalPages - factPages) / lastDays);
-  // console.log(plannedPages);
+  let plannedPages = (totalPages - factPages) / lastDays;
+  if (plannedPages < 0) {
+    plannedPages = 0;
+  }
+  console.log(plannedPages);
 
   const newResult = result.find((item) => item.date === date);
   // console.log(newResult?.plannedPages);
