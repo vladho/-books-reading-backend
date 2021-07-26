@@ -23,10 +23,8 @@ router.get(
 
 router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
   res.redirect(
-    `http://localhost:3000/api/training?token=${req.user.token}&name=${req.user.name}&avatar=${req.user.avatar}`
-  ); 
+    `http://localhost:3000/api/training?token=${req.user.token}&name=${req.user.name}&avatar=${req.user.avatar}&email=${req.user.email}`
+  );
 });
-
-
 
 module.exports = router;

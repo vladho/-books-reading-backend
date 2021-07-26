@@ -1,6 +1,5 @@
 const { Book } = require('../models');
 const { User } = require('../models');
-// const { Training } = require('../models');
 
 const getAll = (userId) => {
   return Book.find({ user: userId });
@@ -31,7 +30,6 @@ const addOne = async (userId, body) => {
 };
 
 const deleteOne = async (userId, bookId) => {
-  // trainingId ) => {
   try {
     await User.findByIdAndUpdate(
       userId,
@@ -44,18 +42,6 @@ const deleteOne = async (userId, bookId) => {
         new: true,
       }
     );
-
-    // await Training.findByIdAndUpdate(
-    //   trainingId,
-    //   {
-    //     $pull: {
-    //       books: bookId,
-    //     },
-    //   },
-    //   {
-    //     new: true,
-    //   }
-    // );
 
     return Book.findByIdAndDelete(bookId);
   } catch (error) {

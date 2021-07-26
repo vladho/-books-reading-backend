@@ -6,7 +6,7 @@
   "jsonLimit": 10000,
   "accountLimit": {
     "windowMs": 3600000,
-    "max": 20
+    "max": 200
   },
   "cookieLimit": {
     "maxAge": 86400000

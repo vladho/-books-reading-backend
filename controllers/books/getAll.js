@@ -2,11 +2,9 @@ const { bookService: services } = require('../../services');
 const { httpCode } = require('../../helpers/constants');
 
 const getAll = async (req, res, next) => {
-  // const { query } = req;
   const { _id: userId } = req.user;
 
   try {
-    // const books = await services.getAll(userId, query);
     const books = await services.getAll(userId);
 
     if (!books) {

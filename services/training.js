@@ -92,18 +92,16 @@ const updateOne = async (userId, id, body) => {
   }, pages);
 
   const formatNow = moment(date + ' ' + time, 'DD.MM.YYYY HH:mm:ss');
-  console.log(formatNow);
 
   const formatEndDate = moment(
     finishDate + ' ' + '23:59:59',
     'DD.MM.YYYY HH:mm:ss'
   );
 
-  const lastDays = Math.ceil(formatEndDate.diff(formatNow, 'days', 'hours'));
-  console.log(lastDays);
+  const lastDays = formatEndDate.diff(formatNow, 'days', 'hours');
 
   let plannedPages = Math.ceil((totalPages - factPages) / lastDays);
-  if (plannedPages < 0) {
+  if (plannedPages < 0 || Infinity) {
     plannedPages = 0;
   }
 
