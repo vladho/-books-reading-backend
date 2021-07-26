@@ -121,7 +121,7 @@ const updateOne = async (userId, id, body) => {
   );
   console.log(formatEndDate);
 
-  const lastDays = Math.round(formatEndDate.diff(formatNow, 'days', 'hours'));
+  const lastDays = Math.ceil(formatEndDate.diff(formatNow, 'days', 'hours'));
   console.log(lastDays);
 
   let plannedPages = Math.ceil((totalPages - factPages) / lastDays);
