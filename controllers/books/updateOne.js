@@ -55,7 +55,7 @@ const updateOne = async (req, res, next) => {
       },
     });
   } catch (error) {
-    throw new Error(error.message);
+    next(error);
   }
 };
 

@@ -2,13 +2,13 @@ const { trainingService: services } = require('../../services');
 const { httpCode } = require('../../helpers/constants');
 
 const updateOne = async (req, res, next) => {
-  // const userId = req.user.id;
+  //   const userId = req.user.id;
   const user = req.user;
   const { _id: id } = user.training;
   const { body } = req;
   //   console.log();
   try {
-    const training = await services.updateOne(id, body);
+    const training = await services.updateOne(user._id, id, body);
 
     // if (book.readPages !== book.totalPages && book.status !== 'done') {
     //   return res.status(httpCode.FORBIDDEN).json({
@@ -53,7 +53,7 @@ const updateOne = async (req, res, next) => {
       },
     });
   } catch (error) {
-    throw new Error(error.message);
+    next(error);
   }
 };
 

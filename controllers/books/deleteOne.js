@@ -25,7 +25,7 @@ const deleteOne = async (req, res, next) => {
       message: 'Successful operation',
     });
   } catch (error) {
-    throw new Error(error.message);
+    next(error);
   }
 };
 
