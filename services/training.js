@@ -111,17 +111,20 @@ const updateOne = async (userId, id, body) => {
   }, pages);
   console.log(factPages);
 
-  const formatNow = moment(date, 'YYYY-MM-DD');
+  const formatNow = moment(date + ' ' + time, 'YYYY-MM-DD HH:mm:ss');
   console.log(formatNow);
   // console.log(finishDate);
 
-  const formatEndDate = moment(finishDate, 'YYYY-MM-DD');
+  const formatEndDate = moment(
+    finishDate + ' ' + '23:59:59',
+    'YYYY-MM-DD HH:mm:ss'
+  );
   console.log(formatEndDate);
 
-  const lastDays = Math.ceil(formatEndDate.diff(formatNow, 'days', 'hours'));
+  const lastDays = Math.round(formatEndDate.diff(formatNow, 'days', 'hours'));
   console.log(lastDays);
 
-  let plannedPages = (totalPages - factPages) / lastDays;
+  let plannedPages = Math.round((totalPages - factPages) / lastDays);
   if (plannedPages < 0) {
     plannedPages = 0;
   }
