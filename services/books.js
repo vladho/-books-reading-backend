@@ -66,21 +66,11 @@ const deleteOne = async (userId, bookId) => {
 const updateOne = async (bookId, rating, resume) => {
   try {
     const book = await Book.findByIdAndUpdate(
-      // { user: userId, _id: id },
       bookId,
-      // {
-      //   $set: {
-      //     rating,
-      //     resume,
-      //   },
-      // },
+
       { rating, resume },
       { new: true }
     );
-    //   .populate({
-    //   path: 'user',
-    //   select: '-createdAt -updatedAt -password',
-    // });
 
     return book;
   } catch (error) {

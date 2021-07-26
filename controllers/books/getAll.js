@@ -23,15 +23,6 @@ const getAll = async (req, res, next) => {
       message: 'Successful operation',
       data: {
         books,
-        // user: userId,
-        // _id: books._id,
-        // title: books.title,
-        // author: books.author,
-        // year: books.year,
-        // totalPages: books.totalPages,
-        // readPages: books.readPages,
-        // status: books.status,
-        // rating: books.rating,
       },
     });
   } catch (error) {

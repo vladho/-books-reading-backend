@@ -24,14 +24,9 @@ router.get(
 router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
   res.redirect(
     `http://localhost:3000/api/training?token=${req.user.token}&name=${req.user.name}&avatar=${req.user.avatar}`
-  ); // frontend
+  ); 
 });
 
-// router.get('/logout', (req, res) => {
-//   // req.session = null;
-//   req.logout();
-//   res.send(req.user);
-//   // res.redirect('/register');
-// });
+
 
 module.exports = router;
