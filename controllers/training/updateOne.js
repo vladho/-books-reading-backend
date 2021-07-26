@@ -4,9 +4,20 @@ const { httpCode } = require('../../helpers/constants');
 const updateOne = async (req, res, next) => {
   //   const userId = req.user.id;
   const user = req.user;
+
+  if (!user.training) {
+    return res.status(httpCode.BAD_REQUEST).json({
+      status: 'fail',
+      code: httpCode.BAD_REQUEST,
+      message: 'No current training in user',
+      //   data: null,
+    });
+  }
+
   const { _id: id } = user.training;
+
   const { body } = req;
-  //   console.log();
+
   try {
     const training = await services.updateOne(user._id, id, body);
 
