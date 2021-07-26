@@ -10,7 +10,7 @@ const addOne = async (req, res, next) => {
       return res.status(httpCode.BAD_REQUEST).json({
         status: 'error',
         code: httpCode.BAD_REQUEST,
-        message: 'Missing or bad name of some fields',
+        message: 'Invalid request body / Token not provided',
       });
     }
 
@@ -25,6 +25,7 @@ const addOne = async (req, res, next) => {
     res.status(httpCode.CREATED).json({
       status: 'success',
       code: httpCode.CREATED,
+      message: 'Successful operation',
       data: {
         user: userId,
         _id: book._id,

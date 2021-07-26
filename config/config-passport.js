@@ -21,6 +21,7 @@ const params = {
 };
 
 passport.use(
+  'jwt',
   new Strategy(settings, async (payload, done) => {
     try {
       const user = await services.getUserById(payload.id);
@@ -41,6 +42,7 @@ passport.use(
 );
 
 passport.use(
+  'google',
   new GoogleStrategy(
     params,
     async (accessToken, refreshToken, profile, done) => {
@@ -85,13 +87,6 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser((id, done) => {
   User.findById(id).then((user) => {
-    // console.log('user:', user);
     done(null, user);
   });
 });
-
-// passport.deserializeUser((id, done) => {
-//   User.findById(id, (error, user) => {
-//     done(error, user);
-//   });
-// });

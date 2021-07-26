@@ -13,16 +13,16 @@ const deleteOne = async (req, res, next) => {
       return res.status(httpCode.BAD_REQUEST).json({
         status: 'fail',
         code: httpCode.BAD_REQUEST,
-        message: 'Book not found',
+        message: 'Invalid request body / Token not provided',
       });
     }
 
-    await services.deleteOne(userId, bookId); //trainingId);
+    await services.deleteOne(userId, bookId); // trainingId);
 
     res.status(httpCode.OK).json({
       status: 'success',
       code: httpCode.OK,
-      message: 'Book deleted',
+      message: 'Successful operation',
     });
   } catch (error) {
     next(error);

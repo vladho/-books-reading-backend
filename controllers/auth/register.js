@@ -15,7 +15,7 @@ const register = async (req, res, next) => {
       return res.status(httpCode.CONFLICT).json({
         status: 'error',
         code: httpCode.CONFLICT,
-        message: 'Email in use',
+        message: 'Provided email already exists',
       });
     }
 
@@ -23,7 +23,7 @@ const register = async (req, res, next) => {
       return res.status(httpCode.BAD_REQUEST).json({
         status: 'error',
         code: httpCode.BAD_REQUEST,
-        message: 'Missing required fields',
+        message: 'Required fields are missing',
       });
     }
 
@@ -42,6 +42,7 @@ const register = async (req, res, next) => {
     res.status(httpCode.CREATED).json({
       status: 'success',
       code: httpCode.CREATED,
+      message: 'Successful operation',
       data: {
         user: {
           _id: newUser._id,

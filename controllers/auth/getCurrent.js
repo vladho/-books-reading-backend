@@ -10,6 +10,7 @@ const getCurrent = async (req, res, next) => {
     res.status(httpCode.OK).json({
       status: 'success',
       code: httpCode.OK,
+      message: 'Successful operation',
       data: {
         user: {
           _id: user._id,

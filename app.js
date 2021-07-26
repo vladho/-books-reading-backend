@@ -7,6 +7,8 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./config/swagger.json');
 const { authRouter, booksRouter, trainingRouter } = require('./routes/api');
 const { httpCode } = require('./helpers/constants');
 const { ErrorHandler } = require('./helpers/error-handler');
@@ -38,7 +40,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(helmet());
-app.use(cors());
+app.use(cors('*'));
 app.use(express.json({ limit: jsonLimit }));
 app.use(logger('combined', { stream: accessLogStream }, formatsLogger));
 
@@ -59,6 +61,7 @@ app.use(
   })
 );
 
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/auth', authRouter);
 app.use('/api/books', booksRouter);
 app.use('/api/training', trainingRouter);

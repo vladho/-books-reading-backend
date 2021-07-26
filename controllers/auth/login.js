@@ -15,7 +15,7 @@ const login = async (req, res, next) => {
       return res.status(httpCode.UNAUTHORIZED).json({
         status: 'error',
         code: httpCode.UNAUTHORIZED,
-        message: 'Invalid email',
+        message: 'Invalid credentials',
       });
     }
 
@@ -25,7 +25,7 @@ const login = async (req, res, next) => {
       return res.status(httpCode.UNAUTHORIZED).json({
         status: 'error',
         code: httpCode.UNAUTHORIZED,
-        message: 'Invalid password',
+        message: 'Invalid credentials',
       });
     }
 
@@ -38,6 +38,7 @@ const login = async (req, res, next) => {
     res.status(httpCode.OK).json({
       status: 'success',
       code: httpCode.OK,
+      message: 'Successful operation',
       data: {
         user: {
           _id: user._id,
