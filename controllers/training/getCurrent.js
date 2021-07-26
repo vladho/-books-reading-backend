@@ -2,18 +2,6 @@ const { trainingService: services } = require('../../services');
 const { httpCode } = require('../../helpers/constants');
 
 const getCurrent = async (req, res, next) => {
-  // const { query } = req;
-  // const { _id: userId } = req.user;
-
-  // console.log(trainingId);
-  // if (!req.user.training) {
-  //   return res.status(httpCode.BAD_REQUEST).json({
-  //     status: 'fail',
-  //     code: httpCode.BAD_REQUEST,
-  //     message: 'Training not found',
-  //   });
-  // }
-
   if (!req.user.training) {
     return res.status(httpCode.OK).json({
       status: 'success',
@@ -27,14 +15,6 @@ const getCurrent = async (req, res, next) => {
 
   try {
     const training = await services.getOne(id);
-
-    // if (!training) {
-    //   return res.status(httpCode.BAD_REQUEST).json({
-    //     status: 'fail',
-    //     code: httpCode.BAD_REQUEST,
-    //     message: 'Missing query',
-    //   });
-    // }
 
     res.status(httpCode.OK).json({
       status: 'success',

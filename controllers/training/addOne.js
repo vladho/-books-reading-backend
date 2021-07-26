@@ -21,19 +21,13 @@ const addOne = async (req, res, next) => {
       user: userId,
     });
 
-    // console.log('books after new', books);
-    // console.log(newTraining._id);
-
     const training = await services.getOne(newTraining._id);
-
-    // console.log(training.books);
 
     res.status(httpCode.CREATED).json({
       status: 'success',
       code: httpCode.CREATED,
       message: 'Training added',
       data: {
-        // training,
         _id: training.id,
         user: training.user.id,
         books: training.books,
@@ -43,11 +37,7 @@ const addOne = async (req, res, next) => {
         result: training.result,
       },
     });
-    // } catch (error) {
-    //   throw new Error(error.message);
-    // }
   } catch (error) {
-    // throw error;
     return res.status(httpCode.BAD_REQUEST).json({
       status: 'error',
       code: httpCode.BAD_REQUEST,

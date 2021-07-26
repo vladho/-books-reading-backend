@@ -10,10 +10,7 @@ const trainingSchema = new Schema(
       type: String,
       required: [true, 'Set end date for training'],
     },
-    // duration: {
-    //   type: Number,
-    //   default: 0,
-    // },
+
     inProgress: {
       type: Boolean,
       default: true,
