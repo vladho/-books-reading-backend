@@ -110,16 +110,19 @@ const updateOne = async (userId, id, body) => {
   }, 0);
 
   const now = moment();
+  console.log(now);
 
   const formatEndDate = moment(finishDate, 'YYYY-MM-DD');
+  console.log(formatEndDate);
 
   const lastDays = formatEndDate.diff(now, 'days');
+  console.log(lastDays);
 
   let plannedPages = (totalPages - factPages) / lastDays;
   if (plannedPages < 0) {
     plannedPages = 0;
   }
-
+  console.log(plannedPages);
   const endTraining = books.some((item) => item.status === 'read');
   if (!endTraining) {
     await User.findByIdAndUpdate(userId, {
