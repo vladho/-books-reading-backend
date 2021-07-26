@@ -56,6 +56,15 @@ passport.use(
 
         User.findOne({ googleId: profile.id }).then(async (currentUser) => {
           if (currentUser) {
+            const id = currentUser._id;
+            const payload = { id };
+            const token = jwt.sign(payload, JWT_SECRET_KEY, {
+              expiresIn: '16h',
+            });
+
+            await services.updateToken(id, token);
+
+            currentUser.token = token;
             done(null, currentUser);
           } else {
             const result = await new User({
