@@ -101,28 +101,35 @@ const updateOne = async (userId, id, body) => {
   const totalPages = books.reduce((acc, value) => {
     return acc + value.totalPages;
   }, 0);
+  console.log(totalPages);
 
   const factPages = result.reduce((acc, value) => {
     const dayFactPages = value.stats.reduce((acc, value) => {
       return acc + value.pages;
     }, 0);
     return acc + dayFactPages;
-  }, 0);
+  }, pages);
+  console.log(factPages);
 
-  const now = moment();
-  console.log(now);
+  const formatNow = moment(date + ' ' + time, 'YYYY-MM-DD HH:mm:ss');
+  console.log(formatNow);
+  // console.log(finishDate);
 
-  const formatEndDate = moment(finishDate, 'YYYY-MM-DD');
+  const formatEndDate = moment(
+    finishDate + ' ' + '23:59:59',
+    'YYYY-MM-DD HH:mm:ss'
+  );
   console.log(formatEndDate);
 
-  const lastDays = formatEndDate.diff(now, 'days');
+  const lastDays = Math.round(formatEndDate.diff(formatNow, 'days', 'hours'));
   console.log(lastDays);
 
-  let plannedPages = (totalPages - factPages) / lastDays;
+  let plannedPages = Math.ceil((totalPages - factPages) / lastDays);
   if (plannedPages < 0) {
     plannedPages = 0;
   }
   console.log(plannedPages);
+
   const endTraining = books.some((item) => item.status === 'read');
   if (!endTraining) {
     await User.findByIdAndUpdate(userId, {
