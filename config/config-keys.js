@@ -1,4 +1,4 @@
-require("dotenv").config();
+require('dotenv').config();
 
 const { DB_HOST, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, COOKIE_KEY } =
   process.env;
