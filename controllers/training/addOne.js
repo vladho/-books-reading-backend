@@ -26,7 +26,7 @@ const addOne = async (req, res, next) => {
     res.status(httpCode.CREATED).json({
       status: 'success',
       code: httpCode.CREATED,
-      message: 'Training added',
+      message: 'Successful operation',
       data: {
         _id: training.id,
         user: training.user.id,
@@ -41,7 +41,7 @@ const addOne = async (req, res, next) => {
     return res.status(httpCode.BAD_REQUEST).json({
       status: 'error',
       code: httpCode.BAD_REQUEST,
-      message: 'Invalid bookId',
+      message: 'Successful operation',
     });
   }
 };

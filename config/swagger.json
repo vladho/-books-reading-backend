@@ -11,7 +11,7 @@
   },
   "consumes": ["application/json"],
   "produces": ["application/json"],
-  "servers": [{ "url": "http://localhost:8080" }],
+  "servers": [{ "url": "https://books-reading-backend.herokuapp.com/" }],
   "tags": [
     {
       "name": "Auth",
@@ -146,7 +146,7 @@
     "/api/auth/google": {
       "get": {
         "tags": ["Auth"],
-        "summary": "Auth user from GoogleAuth, after redirected to http://localhost:3000/api/training",
+        "summary": "Auth user from GoogleAuth, after redirected to https://books-reading-bc05.netlify.app/training",
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -164,13 +164,7 @@
         "responses": {
           "200": {
             "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetBooks"
-                }
-              }
-            }
+            "content": {}
           },
           "400": {
             "description": "Invalid request body / Token not provided",
@@ -194,24 +188,12 @@
         "requestBody": {
           "description": "Book's object",
           "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddBookRequest"
-              }
-            }
-          }
+          "content": {}
         },
         "responses": {
           "200": {
             "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AddBookResponse"
-                }
-              }
-            }
+            "content": {}
           },
           "400": {
             "description": "Invalid request body / Token not provided",
@@ -241,24 +223,12 @@
         "requestBody": {
           "description": "Book's review object",
           "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BookReviewRequest"
-              }
-            }
-          }
+          "content": {}
         },
         "responses": {
           "200": {
             "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BookReviewResponse"
-                }
-              }
-            }
+            "content": {}
           },
           "400": {
             "description": "Invalid request body / Token not provided",
@@ -294,24 +264,12 @@
         "requestBody": {
           "description": "Book's delete object",
           "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BookDeleteRequest"
-              }
-            }
-          }
+          "content": {}
         },
         "responses": {
           "200": {
             "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BookDeleteResponse"
-                }
-              }
-            }
+            "content": {}
           },
           "400": {
             "description": "Invalid request body / Token not provided",
@@ -323,9 +281,165 @@
           }
         }
       }
+    },
+    "/api/training": {
+      "get": {
+        "tags": ["Training"],
+        "summary": "Get current training",
+        "security": [{ "Bearer": [] }],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {}
+          },
+          "400": {
+            "description": "Invalid request body / Token not provided",
+            "content": {}
+          },
+           "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": ["Training"],
+        "summary": "Add training",
+        "security": [{ "Bearer": [] }],
+        "parameters": [],
+        "requestBody": {
+          "description": "Training's object",
+          "required": true,
+          "content": {}
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {}
+          },
+          "400": {
+            "description": "Invalid request body / Token not provided",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Training"],
+        "summary": "Add read pages to the training",
+        "security": [{ "Bearer": [] }],
+        "parameters": [],
+        "requestBody": {
+          "description": "Training's object",
+          "required": true,
+          "content": {}
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {}
+          },
+          "400": {
+            "description": "Invalid request body / Token not provided",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
     }
   },
   "components": {
+    "schemas": {
+      "RegistrationRequest": {
+        "required": ["name", "email", "password"],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "User"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "12345678"
+          }
+        }
+      },
+      "RegistrationResponse": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "id": {
+            "type": "string",
+            "description": "User's id",
+            "example": "607f1f77bcf86cd799439011"
+          }
+        }
+      },
+      "LoginRequest": {
+        "required": ["email", "password"],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "12345678"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "description": "Session's access token (needed for all requests)",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZmMyMDg1YmQwOTM2NTI4MTA3Y2UyNzQiLCJzaWQiOiI1ZmMyZDJmY2UxZDIwNTA2NzAyYmRkMjIiLCJpYXQiOjE2MDY2MDM1MTYsImV4cCI6MTYwNjYwNzExNn0.rJ_QjU4KvA76H96RHsvOBChK0Vjbd0NmqjMxdQVJIXA"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "Test"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "format": "email"
+              },
+              "id": {
+                "type": "string",
+                "description": "User's id",
+                "example": "607f1f77bcf86cd799439011"
+              }
+            }
+          }
+        }
+      }
+    },
     "securitySchemes": {
       "Bearer": {
         "type": "http",

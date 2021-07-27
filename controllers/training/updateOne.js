@@ -22,7 +22,7 @@ const updateOne = async (req, res, next) => {
     res.status(httpCode.OK).json({
       status: 'success',
       code: httpCode.OK,
-
+      message: 'Successful operation',
       data: {
         _id: training.id,
         user: training.user,
