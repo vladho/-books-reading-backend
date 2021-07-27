@@ -23,7 +23,7 @@ router.get(
 
 router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
   res.redirect(
-    `https://books-reading-bc05.netlify.app/training?token=${req.user.token}&name=${req.user.name}&avatar=${req.user.avatar}&email=${req.user.email}`
+    `http://localhost:3000/api/training?token=${req.user.token}&name=${req.user.name}&avatar=${req.user.avatar}&email=${req.user.email}`
   );
 });
 
